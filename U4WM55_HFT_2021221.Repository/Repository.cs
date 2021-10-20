@@ -1,5 +1,4 @@
-﻿
-using System.Linq;
+﻿using System.Linq;
 using Microsoft.EntityFrameworkCore;
 
 namespace U4WM55_HFT_2021221.Repository
