@@ -8,7 +8,7 @@ namespace U4WM55_HFT_2021221.Repository
     /// <summary>
     /// This is the LooksRepository class.
     /// </summary>
-    class LooksRepository : Repository<Looks>, ILooksRepository
+    public class LooksRepository : Repository<Looks>, ILooksRepository
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="LooksRepository"/> class.

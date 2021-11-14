@@ -8,7 +8,7 @@ namespace U4WM55_HFT_2021221.Repository
     /// <summary>
     /// This is the MUAsRepository class.
     /// </summary>
-    class MUAsRepository : Repository<MUAs>, IMUAsRepository
+    public class MUAsRepository : Repository<MUAs>, IMUAsRepository
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="MUAsRepository"/> class.

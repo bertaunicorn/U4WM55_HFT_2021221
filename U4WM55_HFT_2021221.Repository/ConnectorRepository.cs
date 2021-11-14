@@ -7,7 +7,7 @@ namespace U4WM55_HFT_2021221.Repository
     /// <summary>
     /// This is the connector repository.
     /// </summary>
-    class ConnectorRepository : Repository<Connector>, IConnectorRepository
+    public class ConnectorRepository : Repository<Connector>, IConnectorRepository
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="ConnectorRepository"/> class.
