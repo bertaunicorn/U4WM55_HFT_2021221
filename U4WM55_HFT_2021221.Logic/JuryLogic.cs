@@ -12,7 +12,7 @@ namespace U4WM55_HFT_2021221.Logic
     /// </summary>
     public class JuryLogic : IJuryLogic
     {
-        private LooksRepository lookRepo;
+        private ILooksRepository lookRepo;
         private ICompetitionsRepository compRepo;
         private IMUAsRepository muaRepo;
         private IConnectorRepository connRepo;
