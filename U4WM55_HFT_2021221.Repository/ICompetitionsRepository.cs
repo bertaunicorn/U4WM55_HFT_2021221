@@ -5,7 +5,7 @@ namespace U4WM55_HFT_2021221.Repository
     /// <summary>
     /// This is the interface for the competitions repository.
     /// </summary>
-    interface ICompetitionRepository : IRepository<Competitions>
+    public interface ICompetitionsRepository : IRepository<Competitions>
     {
         /// <summary>
         /// Changes the difficulty of a competition.

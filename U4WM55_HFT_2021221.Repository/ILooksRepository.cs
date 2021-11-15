@@ -5,7 +5,7 @@ namespace U4WM55_HFT_2021221.Repository
     /// <summary>
     /// This is the interface for the looks repository.
     /// </summary>
-    interface ILooksRepository : IRepository<Looks>
+    public interface ILooksRepository : IRepository<Looks>
     {
         /// <summary>
         /// Changes the theme of an existing look.

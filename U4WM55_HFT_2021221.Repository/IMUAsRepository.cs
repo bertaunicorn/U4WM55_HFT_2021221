@@ -5,7 +5,7 @@ namespace U4WM55_HFT_2021221.Repository
     /// <summary>
     /// This is the interface for the muas repository.
     /// </summary>
-    interface IMUAsRepository : IRepository<MUAs>
+    public interface IMUAsRepository : IRepository<MUAs>
     {
         /// <summary>
         /// Upgrades a MUA's experience level if they get better.
