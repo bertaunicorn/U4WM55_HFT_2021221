@@ -92,5 +92,41 @@ namespace U4WM55_HFT_2021221.Test
 
             mockedMuaRepo.Verify(repo => repo.GetOne(mockedId), Times.Exactly(4));
         }
+
+        /// <summary>
+        /// Testing GetOneLook method as a test for the GetOne CRUD methods.
+        /// </summary>
+        [Test]
+        public void TestGetOneLook()
+        {
+            Mock<ICompetitionsRepository> mockedCompRepo = new Mock<ICompetitionsRepository>(MockBehavior.Loose);
+            Mock<IMUAsRepository> mockedMuaRepo = new Mock<IMUAsRepository>();
+            Mock<ILooksRepository> mockedLookRepo = new Mock<ILooksRepository>();
+            Mock<IConnectorRepository> mockedConnRepo = new Mock<IConnectorRepository>();
+
+            const int mockedId = 10;
+
+            Looks mockedLook = new Looks()
+            {
+                Id = 10,
+                Theme = "fires of hell",
+                Brand = "Morphe",
+                Budget = 400,
+                TimeFrame = 90,
+                Difficulty = 3,
+                CompId = 4,
+            };
+
+            mockedLookRepo.Setup(repo => repo.GetOne(It.IsAny<int>())).Returns(mockedLook);
+            StatisticsLogic logic = new StatisticsLogic(mockedCompRepo.Object, mockedLookRepo.Object, mockedMuaRepo.Object, mockedConnRepo.Object);
+
+            Looks foundLook = logic.GetOneLook(mockedId);
+            Looks testLook = logic.GetOneLook(mockedId);
+
+            Assert.That(foundLook, Is.EqualTo(mockedLook));
+            Assert.That(foundLook, Is.EqualTo(testLook));
+
+            mockedLookRepo.Verify(repo => repo.GetOne(mockedId), Times.Exactly(4));
+        }
     }
 }
