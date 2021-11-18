@@ -75,7 +75,7 @@ namespace U4WM55_HFT_2021221.Test
             var genders = logic.Genders();
 
             Assert.That(genders, Is.EquivalentTo(this.expectedGendersResult));
-            this.compRepo.Verify(repo => repo.GetAll(), Times.Once);
+            //this.compRepo.Verify(repo => repo.GetAll(), Times.Once);
             this.muaRepo.Verify(repo => repo.GetAll(), Times.Once);
             this.connRepo.Verify(repo => repo.GetAll(), Times.Once);
         }
