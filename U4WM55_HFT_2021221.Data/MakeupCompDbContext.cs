@@ -3,7 +3,7 @@ using System;
 
 namespace U4WM55_HFT_2021221.Models
 {
-    class MakeupCompDbContext : DbContext
+    public class MakeupCompDbContext : DbContext
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="MakeupCompetitionDatabaseContext"/> class.

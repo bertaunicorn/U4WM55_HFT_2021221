@@ -6,7 +6,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="ConsoleMenu-simple" Version="2.4.0" />
+    <PackageReference Include="ConsoleMenu-simple" Version="2.4.1" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Proxies" Version="5.0.11" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="5.0.11" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="5.0.11">
