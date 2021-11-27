@@ -5,12 +5,17 @@ namespace U4WM55_HFT_2021221.Models
 {
     public class MakeupCompDbContext : DbContext
     {
+        private static readonly object padlock = new object();
+
         /// <summary>
         /// Initializes a new instance of the <see cref="MakeupCompetitionDatabaseContext"/> class.
         /// </summary>
         public MakeupCompDbContext()
         {
-            this.Database.EnsureCreated();
+            lock (padlock)
+            {
+                this.Database.EnsureCreated();
+            }
         }
 
         /// <summary>
