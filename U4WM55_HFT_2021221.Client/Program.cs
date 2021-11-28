@@ -272,9 +272,9 @@ namespace U4WM55_HFT_2021221.Client
 
                 Competitions changeComp = new Competitions() { Id = id, Difficulty = newCompDiff };
 
-                rest.Put<Competitions>(changeComp, "changeCompDiff");
+                rest.Put<Competitions>(changeComp, "jury/compDiff");
 
-                var c = rest.GetSingle<Competitions>("comp", changeComp.Id);
+                var c = rest.GetSingle<Competitions>("statistics/comp", changeComp.Id);
                 
                 Console.WriteLine(c.ToString());
                 Console.ReadLine();
@@ -304,9 +304,9 @@ namespace U4WM55_HFT_2021221.Client
 
                 Looks changeLook = new Looks() { Id = id, Difficulty = newLookDiff };
 
-                rest.Put<Looks>(changeLook, "changeLookDiff");
+                rest.Put<Looks>(changeLook, "jury/lookDiff");
 
-                var l = rest.GetSingle<Looks>("look", changeLook.Id);
+                var l = rest.GetSingle<Looks>("statistics/look", changeLook.Id);
 
                 Console.WriteLine(l.ToString());
                 Console.ReadLine();
@@ -337,9 +337,9 @@ namespace U4WM55_HFT_2021221.Client
 
                 Looks changeLook = new Looks() { Id = id, Theme = newTheme };
 
-                rest.Put<Looks>(changeLook, "changeTheme");
+                rest.Put<Looks>(changeLook, "jury/theme");
 
-                var l = rest.GetSingle<Looks>("look", changeLook.Id);
+                var l = rest.GetSingle<Looks>("statistics/look", changeLook.Id);
 
                 Console.WriteLine(l.ToString());
                 Console.ReadLine();
@@ -370,7 +370,7 @@ namespace U4WM55_HFT_2021221.Client
                 string choice = Console.ReadLine();
                 if (choice == "y" || choice == "Y")
                 {
-                    rest.Delete(deleteId, "compToDelete");
+                    rest.Delete(deleteId, "jury/delete/{id}");
                     Console.WriteLine("Okay, I deleted competition number " + deleteId + ".");
                     Console.ReadLine();
                 }
@@ -405,7 +405,7 @@ namespace U4WM55_HFT_2021221.Client
                 string choice = Console.ReadLine();
                 if (choice == "y" || choice == "Y")
                 {
-                    rest.Delete(deleteId, "muaToDelete");
+                    rest.Delete(deleteId, "jury/delete/{id}");
                     Console.WriteLine("Okay, I deleted mua number " + deleteId + ".");
                     Console.ReadLine();
                 }
@@ -440,7 +440,7 @@ namespace U4WM55_HFT_2021221.Client
                 string choice = Console.ReadLine();
                 if (choice == "y" || choice == "Y")
                 {
-                    rest.Delete(deleteId, "lookToDelete");
+                    rest.Delete(deleteId, "jury/delete/{id}");
                     Console.WriteLine("Okay, I deleted look number " + deleteId + ".");
                     Console.ReadLine();
                 }
@@ -488,7 +488,7 @@ namespace U4WM55_HFT_2021221.Client
 
             try
             {
-                rest.Post<Competitions>(newComp, "newComp");
+                rest.Post<Competitions>(newComp, "jury/competition");
                 Console.WriteLine("You created a new competition which will take place at " + place + " on " + compDate + ".");
                 Console.ReadLine();
             }
@@ -533,7 +533,7 @@ namespace U4WM55_HFT_2021221.Client
 
             try
             {
-                rest.Post<Looks>(newLook, "newLook");
+                rest.Post<Looks>(newLook, "jury/look");
                 Console.WriteLine("You created a new makeup look which will be in a " + theme + " theme and it will be " + difficulty + "/5 difficulty.");
                 Console.ReadLine();
             }
@@ -562,9 +562,9 @@ namespace U4WM55_HFT_2021221.Client
 
                 MUAs changeMUA = new MUAs() { Id = id, NumOfModels = newNum };
 
-                rest.Put<MUAs>(changeMUA, "changeTheme");
+                rest.Put<MUAs>(changeMUA, "participant/numModels");
 
-                var m = rest.GetSingle<MUAs>("mua", changeMUA.Id);
+                var m = rest.GetSingle<MUAs>("statistics/mua", changeMUA.Id);
 
                 Console.WriteLine(m.ToString());
                 Console.ReadLine();
@@ -595,9 +595,9 @@ namespace U4WM55_HFT_2021221.Client
 
                 MUAs changeMUA = new MUAs() { Id = id, ExperienceLvl = newLvl };
 
-                rest.Put<MUAs>(changeMUA, "upgrade");
+                rest.Put<MUAs>(changeMUA, "participant/upgradeMua");
 
-                var m = rest.GetSingle<MUAs>("mua", changeMUA.Id);
+                var m = rest.GetSingle<MUAs>("statistics/mua", changeMUA.Id);
 
                 Console.WriteLine(m.ToString());
 
@@ -654,7 +654,7 @@ namespace U4WM55_HFT_2021221.Client
 
             try
             {
-                rest.Post<MUAs>(newMUA, "newMUA");
+                rest.Post<MUAs>(newMUA, "participant/mua");
                 Console.WriteLine("You registered the mua named " + name + ".");
                 Console.ReadLine();
             }
@@ -687,7 +687,7 @@ namespace U4WM55_HFT_2021221.Client
 
             try
             {
-                rest.Post<Connector>(newConn, "newConn");
+                rest.Post<Connector>(newConn, "participant/connection");
                 Console.WriteLine("You added the " + muaId + ". MUA to the " + compId + ". competition.");
                 Console.ReadLine();
             }
@@ -716,7 +716,7 @@ namespace U4WM55_HFT_2021221.Client
                 string choice = Console.ReadLine();
                 if (choice == "y" || choice == "Y")
                 {
-                    rest.Delete(deleteId, "connToDelete");
+                    rest.Delete(deleteId, "participant/delete/{id}");
                 }
                 else
                 {

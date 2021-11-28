@@ -43,10 +43,10 @@ namespace U4WM55_HFT_2021221.Client
             return items;
         }
 
-        public T GetSingle<T>(string endpoint, int variable)
+        public T GetSingle<T>(string endpoint, int id)
         {
             T item = default(T);
-            HttpResponseMessage response = client.GetAsync(endpoint + "/" + variable).GetAwaiter().GetResult();
+            HttpResponseMessage response = client.GetAsync(endpoint + "/" + id).GetAwaiter().GetResult();
             if (response.IsSuccessStatusCode)
             {
                 item = response.Content.ReadAsAsync<T>().GetAwaiter().GetResult();
