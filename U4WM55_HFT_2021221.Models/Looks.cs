@@ -4,6 +4,7 @@ namespace U4WM55_HFT_2021221.Models
     using System;
     using System.ComponentModel.DataAnnotations;
     using System.ComponentModel.DataAnnotations.Schema;
+    using System.Text.Json.Serialization;
 
     /// <summary>
     /// This class represents the looks table, which has the makeup looks to be created at the competitions.
@@ -78,6 +79,7 @@ namespace U4WM55_HFT_2021221.Models
         /// Gets or sets a Competition type object.
         /// </summary>
         [NotMapped]
+        [JsonIgnore]
         public virtual Competitions Competition { get; set; }
 
         /// <summary>

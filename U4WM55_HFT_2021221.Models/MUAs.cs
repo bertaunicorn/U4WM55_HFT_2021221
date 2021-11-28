@@ -5,6 +5,7 @@ namespace U4WM55_HFT_2021221.Models
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
     using System.ComponentModel.DataAnnotations.Schema;
+    using System.Text.Json.Serialization;
 
     /// <summary>
     /// This class represents the muas table, which has the makeup artists in it, who might compete in the cup.
@@ -26,6 +27,7 @@ namespace U4WM55_HFT_2021221.Models
         ///  Gets the navigational property for the Connector table.
         /// </summary>
         [NotMapped]
+        [JsonIgnore]
         public virtual ICollection<Connector> Connectors { get; }
 
         /// <summary>

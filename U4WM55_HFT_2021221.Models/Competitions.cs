@@ -5,6 +5,7 @@ namespace U4WM55_HFT_2021221.Models
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
     using System.ComponentModel.DataAnnotations.Schema;
+    using System.Text.Json.Serialization;
 
     /// <summary>
     /// This class represents the competitions table, which has the 11 competitions of the year in it, for the annual championship/cup.
@@ -25,12 +26,14 @@ namespace U4WM55_HFT_2021221.Models
         /// Gets the navigational property for the Connector table.
         /// </summary>
         [NotMapped]
+        [JsonIgnore]
         public virtual ICollection<Connector> Connectors { get; }
 
         /// <summary>
         /// Gets the navigational propery for the Looks table.
         /// </summary>
         [NotMapped]
+        [JsonIgnore]
         public virtual ICollection<Looks> Looks { get; }
 
         /// <summary>

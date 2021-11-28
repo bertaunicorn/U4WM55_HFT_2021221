@@ -8,7 +8,7 @@ namespace U4WM55_HFT_2021221.Client
 {
     class Program
     {
-        public static RestService rest = new RestService("http://localhost:5000");
+        public static RestService rest = new RestService("https://localhost:44314");
 
         /// <summary>
         /// We will run methods in this.
@@ -87,7 +87,7 @@ namespace U4WM55_HFT_2021221.Client
         {
             Console.WriteLine("\n:: LIST ALL ELEMENTS ::\n");
 
-            var comps = rest.Get<Competitions>("allComps");
+            var comps = rest.Get<Competitions>("statistics/allComps");
 
             foreach (var comp in comps)
             {
@@ -101,7 +101,7 @@ namespace U4WM55_HFT_2021221.Client
         {
             Console.WriteLine("\n:: LIST ALL ELEMENTS ::\n");
 
-            var looks = rest.Get<Looks>("looks");
+            var looks = rest.Get<Looks>("statistics/allLooks");
 
             foreach (var look in looks)
             {
@@ -115,7 +115,7 @@ namespace U4WM55_HFT_2021221.Client
         {
             Console.WriteLine("\n:: LIST ALL ELEMENTS ::\n");
 
-            var muas = rest.Get<MUAs>("muas");
+            var muas = rest.Get<MUAs>("statistics/allMUAs");
 
             foreach (var mua in muas)
             {
@@ -129,7 +129,7 @@ namespace U4WM55_HFT_2021221.Client
         {
             Console.WriteLine("\n:: LIST ALL ELEMENTS ::\n");
 
-            var conns = rest.Get<Competitions>("conns");
+            var conns = rest.Get<Competitions>("statistics/allConns");
 
             foreach (var conn in conns)
             {
@@ -147,7 +147,7 @@ namespace U4WM55_HFT_2021221.Client
             {
                 int id = int.Parse(Console.ReadLine());
 
-                var comp = rest.GetSingle<Competitions>("comp", id);
+                var comp = rest.GetSingle<Competitions>("statistics/comp/{id}", id);
 
                 Console.WriteLine(comp.ToString());
             }
@@ -173,7 +173,7 @@ namespace U4WM55_HFT_2021221.Client
             {
                 int id = int.Parse(Console.ReadLine());
 
-                var look = rest.GetSingle<Looks>("look", id);
+                var look = rest.GetSingle<Looks>("statistics/look/{id}", id);
 
                 Console.WriteLine(look.ToString());
             }
@@ -202,7 +202,7 @@ namespace U4WM55_HFT_2021221.Client
                 {
                     int id = int.Parse(Console.ReadLine());
 
-                    var mua = rest.GetSingle<MUAs>("mua", id);
+                    var mua = rest.GetSingle<MUAs>("statistics/mua/{id}", id);
 
                     Console.WriteLine(mua.ToString());
 
@@ -236,7 +236,7 @@ namespace U4WM55_HFT_2021221.Client
                 {
                     int id = int.Parse(Console.ReadLine());
 
-                    var conn = rest.GetSingle<Connector>("conn", id);
+                    var conn = rest.GetSingle<Connector>("statistics/conn/{id}", id);
 
                     Console.WriteLine(conn.ToString());
 
@@ -750,20 +750,20 @@ namespace U4WM55_HFT_2021221.Client
         //    Console.ReadLine();
         //}
 
-        private static void Genders(RestService rest)
-        {
-            Console.WriteLine("\n:: LISTING BY GENDER ::\n");
+        //private static void Genders(RestService rest)
+        //{
+        //    Console.WriteLine("\n:: LISTING BY GENDER ::\n");
 
-            List<MUAs> gendersList = rest.Get<GendersResult>
+        //    List<MUAs> gendersList = rest.Get<GendersResult>
             
 
-            foreach (var item in participantLogic.Genders())
-            {
-                Console.WriteLine(item);
-            }
+        //    foreach (var item in participantLogic.Genders())
+        //    {
+        //        Console.WriteLine(item);
+        //    }
 
-            Console.ReadLine();
-        }
+        //    Console.ReadLine();
+        //}
 
         //private static void SponsorBrands()
         //{

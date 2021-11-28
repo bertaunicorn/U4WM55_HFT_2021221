@@ -5,7 +5,7 @@ using U4WM55_HFT_2021221.Models;
 
 namespace U4WM55_HFT_2021221.Endpoint.Controllers
 {
-    [Route("[controller]/[action]")]
+    [Route("[controller]")]
     [ApiController]
     public class StatisticsController : ControllerBase
     {
@@ -16,53 +16,53 @@ namespace U4WM55_HFT_2021221.Endpoint.Controllers
             this.sl = sl;
         }
 
-        [HttpGet]
+        [HttpGet("allComps")]
         public IEnumerable<Competitions> GetC()
         {
             return sl.GetAllComps();
         }
 
         
-        [HttpGet("{id}")]
+        [HttpGet("comp/{id}")]
         public Competitions GetC(int id)
         {
             return sl.GetOneComp(id);
         }
 
-        [HttpGet]
+        [HttpGet("allLooks")]
         public IEnumerable<Looks> GetL()
         {
             return sl.GetAllLooks();
         }
 
 
-        [HttpGet("{id}")]
+        [HttpGet("look/{id}")]
         public Looks GetL(int id)
         {
             return sl.GetOneLook(id);
         }
 
-        [HttpGet]
+        [HttpGet("allMUAs")]
         public IEnumerable<MUAs> GetM()
         {
             return sl.GetAllMUAs();
         }
 
 
-        [HttpGet("{id}")]
+        [HttpGet("mua/{id}")]
         public MUAs GetM(int id)
         {
             return sl.GetOneMUA(id);
         }
 
-        [HttpGet]
+        [HttpGet("allConns")]
         public IEnumerable<Connector> Get()
         {
             return sl.GetAllConns();
         }
 
 
-        [HttpGet("{id}")]
+        [HttpGet("conn/{id}")]
         public Connector Get(int id)
         {
             return sl.GetOneConn(id);
