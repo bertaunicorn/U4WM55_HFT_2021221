@@ -1,5 +1,6 @@
 ﻿using ConsoleTools;
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using U4WM55_HFT_2021221.Models;
 
@@ -7,7 +8,7 @@ namespace U4WM55_HFT_2021221.Client
 {
     class Program
     {
-        public static RestService rest = new RestService("http://localhost:54726");
+        public static RestService rest = new RestService("http://localhost:5000");
 
         /// <summary>
         /// We will run methods in this.
@@ -17,34 +18,34 @@ namespace U4WM55_HFT_2021221.Client
             System.Threading.Thread.Sleep(8000);
 
             var subMenuListAll = new ConsoleMenu()
-                .Add(">> LIST ALL COMPETITIONS", () => rest.Get<Competitions>("comps"))
-                .Add(">> LIST ALL LOOKS", () => rest.Get<Looks>("looks"))
-                .Add(">> LIST ALL MUAs", () => rest.Get<MUAs>("muas"))
-                .Add(">> LIST ALL CONNECTIONS", () => rest.Get<Connector>("conns"))
+                .Add(">> LIST ALL COMPETITIONS", () => GetAllComps(rest))
+                .Add(">> LIST ALL LOOKS", () => GetAllLooks(rest))
+                .Add(">> LIST ALL MUAs", () => GetAllMUAs(rest))
+                .Add(">> LIST ALL CONNECTIONS", () => GetAllConn(rest))
                 .Add(">> BACK TO MAIN MENU", ConsoleMenu.Close);
 
             var subMenuFindOne = new ConsoleMenu()
-                .Add(">> FIND ONE COMPETITION", () => rest.GetSingle<Competitions>("comp"))
-                .Add(">> FIND ONE LOOK", () => rest.GetSingle<Looks>("look"))
-                .Add(">> FIND ONE MUA", () => rest.GetSingle<MUAs>("mua"))
-                .Add(">> FIND ONE CONNECTION", () => rest.GetSingle<Connector>("conn"))
+                .Add(">> FIND ONE COMPETITION", () => GetOneComp(rest))
+                .Add(">> FIND ONE LOOK", () => GetOneLook(rest))
+                .Add(">> FIND ONE MUA", () => GetOneMUA(rest))
+                .Add(">> FIND ONE CONNECTION", () => GetOneConn(rest))
                 .Add(">> BACK TO MAIN MENU", ConsoleMenu.Close);
 
             var subMenuJuryChange = new ConsoleMenu()
-                //.Add(">> CHANGE A COMPETITION'S DIFFICULTY", () => ChangeCompDifficulty())
-                //.Add(">> CHANGE A LOOK'S DIFFICULTY", () => ChangeLookDifficulty())
-                //.Add(">> CHANGE A LOOK'S THEME", () => ChangeTheme())
+                .Add(">> CHANGE A COMPETITION'S DIFFICULTY", () => ChangeCompDifficulty(rest))
+                .Add(">> CHANGE A LOOK'S DIFFICULTY", () => ChangeLookDifficulty(rest))
+                .Add(">> CHANGE A LOOK'S THEME", () => ChangeTheme(rest))
                 .Add(">> BACK TO JURY MENU", ConsoleMenu.Close);
 
             var subMenuJuryDelete = new ConsoleMenu()
-                .Add(">> DELETE A COMPETITION", () => DeleteComp())
-                .Add(">> DELETE A MUA", () => DeleteMUA())
-                .Add(">> DELETE A MAKEUP LOOK", () => DeleteLook())
+                .Add(">> DELETE A COMPETITION", () => DeleteComp(rest))
+                .Add(">> DELETE A MUA", () => DeleteMUA(rest))
+                .Add(">> DELETE A MAKEUP LOOK", () => DeleteLook(rest))
                 .Add(">> BACK TO JURY MENU", ConsoleMenu.Close);
 
             var subMenuJuryCreate = new ConsoleMenu()
-                .Add(">> CREATE A NEW COMPETITION", () => CreateComp())
-                .Add(">> CREATE A NEW MAKEUP LOOK", () => CreateLook())
+                .Add(">> CREATE A NEW COMPETITION", () => CreateComp(rest))
+                .Add(">> CREATE A NEW MAKEUP LOOK", () => CreateLook(rest))
                 .Add(">> BACK TO JURY MENU", ConsoleMenu.Close);
 
             var subMenuJury = new ConsoleMenu()
@@ -54,11 +55,11 @@ namespace U4WM55_HFT_2021221.Client
                 .Add(">> BACK TO MAIN MENU", ConsoleMenu.Close);
 
             var subMenuParticipants = new ConsoleMenu()
-                //.Add(">> CHANGE A MUA'S NUMBER OF MODELS", () => ChangeNumOfModels())
-                //.Add(">> CHANGE A MUA'S EXPERIENCE LEVEL", () => UpgradeMUA())
-                .Add(">> REGISTER NEW MUA", () => CreateMUA())
-                .Add(">> CREATE A NEW CONNECTION (adding a mua to a competition)", () => CreateConn())
-                .Add(">> DELETE A CONNECTION", () => DeleteConn())
+                .Add(">> CHANGE A MUA'S NUMBER OF MODELS", () => ChangeNumOfModels(rest))
+                .Add(">> CHANGE A MUA'S EXPERIENCE LEVEL", () => UpgradeMUA(rest))
+                .Add(">> REGISTER NEW MUA", () => CreateMUA(rest))
+                .Add(">> CREATE A NEW CONNECTION (adding a mua to a competition)", () => CreateConn(rest))
+                .Add(">> DELETE A CONNECTION", () => DeleteConn(rest))
                 .Add(">> BACK TO MAIN MENU", ConsoleMenu.Close);
 
             var subMenuQuerys = new ConsoleMenu()
@@ -82,87 +83,281 @@ namespace U4WM55_HFT_2021221.Client
 
         }
 
-        //private static void ChangeCompDifficulty()
-        //{
-        //    Console.WriteLine("\n:: CHANGE THE DIFFICULTY OF A COMPETITION ::\n");
+        private static void GetAllComps(RestService rest)
+        {
+            Console.WriteLine("\n:: LIST ALL ELEMENTS ::\n");
 
-        //    Console.WriteLine("Which competition's difficulty do you want to change? Give me an ID number!");
-        //    try
-        //    {
-        //        int id = int.Parse(Console.ReadLine());
-        //        Console.WriteLine("What do you want the new difficulty to be? It must be between 1 and 10! (Can be 1 and 10 as well)");
-        //        int newCompDiff = int.Parse(Console.ReadLine());
-        //        juryLogic.ChangeCompDifficulty(id, newCompDiff);
-        //        Console.WriteLine(statisticsLogic.GetOneComp(id).ToString());
-        //        Console.ReadLine();
-        //    }
-        //    catch (InvalidOperationException invalid)
-        //    {
-        //        Console.WriteLine(invalid.Message);
-        //        Console.WriteLine("Try again!");
-        //        Console.ReadLine();
-        //    }
-        //    catch (FormatException ex)
-        //    {
-        //        Console.WriteLine(ex.Message);
-        //        Console.ReadLine();
-        //    }
-        //}
+            var comps = rest.Get<Competitions>("allComps");
 
-        //private static void ChangeLookDifficulty()
-        //{
-        //    Console.WriteLine("\n:: CHANGE THE DIFFICULTY OF A LOOK ::\n");
-        //    try
-        //    {
-        //        Console.WriteLine("Which look's difficulty do you want to change? Give me an ID number!");
-        //        int id = int.Parse(Console.ReadLine());
-        //        Console.WriteLine("What do you want the new difficulty to be? It must be between 1 and 5!  (Can be 1 and 5 as well)");
-        //        int newLookDiff = int.Parse(Console.ReadLine());
-        //        juryLogic.ChangeLookDifficulty(id, newLookDiff);
-        //        Console.WriteLine(statisticsLogic.GetOneLook(id).ToString());
-        //        Console.ReadLine();
-        //    }
-        //    catch (InvalidOperationException invalid)
-        //    {
-        //        Console.WriteLine(invalid.Message);
-        //        Console.WriteLine("Try again!");
-        //        Console.ReadLine();
-        //    }
-        //    catch (FormatException ex)
-        //    {
-        //        Console.WriteLine(ex.Message);
-        //        Console.ReadLine();
-        //    }
-        //}
+            foreach (var comp in comps)
+            {
+                Console.WriteLine(comp.ToString());
+            }
 
-        //private static void ChangeTheme()
-        //{
-        //    Console.WriteLine("\n:: CHANGE THE THEME OF A LOOK ::\n");
+            Console.ReadLine();
+        }
 
-        //    try
-        //    {
-        //        Console.WriteLine("Which look's theme do you want to change? Give me an ID number!");
-        //        int id = int.Parse(Console.ReadLine());
-        //        Console.WriteLine("What do you want the new theme to be?");
-        //        string newTheme = Console.ReadLine();
-        //        juryLogic.ChangeTheme(id, newTheme);
-        //        Console.WriteLine(statisticsLogic.GetOneLook(id).ToString());
-        //        Console.ReadLine();
-        //    }
-        //    catch (InvalidOperationException invalid)
-        //    {
-        //        Console.WriteLine(invalid.Message);
-        //        Console.WriteLine("Try again!");
-        //        Console.ReadLine();
-        //    }
-        //    catch (FormatException ex)
-        //    {
-        //        Console.WriteLine(ex.Message);
-        //        Console.ReadLine();
-        //    }
-        //}
+        private static void GetAllLooks(RestService rest)
+        {
+            Console.WriteLine("\n:: LIST ALL ELEMENTS ::\n");
 
-        private static void DeleteComp()
+            var looks = rest.Get<Looks>("looks");
+
+            foreach (var look in looks)
+            {
+                Console.WriteLine(look.ToString());
+            }
+
+            Console.ReadLine();
+        }
+
+        private static void GetAllMUAs(RestService rest)
+        {
+            Console.WriteLine("\n:: LIST ALL ELEMENTS ::\n");
+
+            var muas = rest.Get<MUAs>("muas");
+
+            foreach (var mua in muas)
+            {
+                Console.WriteLine(mua.ToString());
+            }
+
+            Console.ReadLine();
+        }
+
+        private static void GetAllConn(RestService rest)
+        {
+            Console.WriteLine("\n:: LIST ALL ELEMENTS ::\n");
+
+            var conns = rest.Get<Competitions>("conns");
+
+            foreach (var conn in conns)
+            {
+                Console.WriteLine(conn.ToString());
+            }
+
+            Console.ReadLine();
+        }
+
+        private static void GetOneComp(RestService rest)
+        {
+            Console.WriteLine("\n:: FIND ONE ELEMENT ::\n");
+            Console.WriteLine("Which competition do you want to find? Give me an ID number!");
+            try
+            {
+                int id = int.Parse(Console.ReadLine());
+
+                var comp = rest.GetSingle<Competitions>("comp", id);
+
+                Console.WriteLine(comp.ToString());
+            }
+            catch (InvalidOperationException invalid)
+            {
+                Console.WriteLine(invalid.Message);
+                Console.ReadLine();
+            }
+            catch (FormatException ex)
+            {
+                Console.WriteLine(ex.Message);
+                Console.ReadLine();
+            }
+
+            Console.ReadLine();
+        }
+
+        private static void GetOneLook(RestService rest)
+        {
+            Console.WriteLine("\n:: FIND ONE ELEMENT ::\n");
+            Console.WriteLine("Which look do you want to find? Give me an ID number!");
+            try
+            {
+                int id = int.Parse(Console.ReadLine());
+
+                var look = rest.GetSingle<Looks>("look", id);
+
+                Console.WriteLine(look.ToString());
+            }
+            catch (InvalidOperationException invalid)
+            {
+                Console.WriteLine(invalid.Message);
+                Console.ReadLine();
+            }
+            catch (FormatException ex)
+            {
+                Console.WriteLine(ex.Message);
+                Console.ReadLine();
+            }
+
+            Console.ReadLine();
+        }
+
+        private static void GetOneMUA(RestService rest)
+        {
+            Console.WriteLine("\n:: FIND ONE ELEMENT ::\n");
+            bool done = false;
+            do
+            {
+                Console.WriteLine("Which makeup artist do you want to find? Give me an ID number!");
+                try
+                {
+                    int id = int.Parse(Console.ReadLine());
+
+                    var mua = rest.GetSingle<MUAs>("mua", id);
+
+                    Console.WriteLine(mua.ToString());
+
+                    done = true;
+                }
+                catch (InvalidOperationException invalid)
+                {
+                    Console.WriteLine(invalid.Message);
+                    Console.WriteLine("Try again!");
+                    Console.ReadLine();
+                }
+                catch (FormatException ex)
+                {
+                    Console.WriteLine(ex.Message);
+                    Console.ReadLine();
+                }
+            }
+            while (!done);
+
+            Console.ReadLine();
+        }
+
+        private static void GetOneConn(RestService rest)
+        {
+            Console.WriteLine("\n:: FIND ONE ELEMENT ::\n");
+            bool done = false;
+            do
+            {
+                Console.WriteLine("Which connection do you want to find? Give me an ID number!");
+                try
+                {
+                    int id = int.Parse(Console.ReadLine());
+
+                    var conn = rest.GetSingle<Connector>("conn", id);
+
+                    Console.WriteLine(conn.ToString());
+
+                    done = true;
+                }
+                catch (InvalidOperationException invalid)
+                {
+                    Console.WriteLine(invalid.Message);
+                    Console.WriteLine("Try again!");
+                    Console.ReadLine();
+                }
+                catch (FormatException ex)
+                {
+                    Console.WriteLine(ex.Message);
+                    Console.ReadLine();
+                }
+            }
+            while (!done);
+
+            Console.ReadLine();
+        }
+
+        private static void ChangeCompDifficulty(RestService rest)
+        {
+            Console.WriteLine("\n:: CHANGE THE DIFFICULTY OF A COMPETITION ::\n");
+
+            Console.WriteLine("Which competition's difficulty do you want to change? Give me an ID number!");
+            try
+            {
+                int id = int.Parse(Console.ReadLine());
+                Console.WriteLine("What do you want the new difficulty to be? It must be between 1 and 10! (Can be 1 and 10 as well)");
+                int newCompDiff = int.Parse(Console.ReadLine());
+
+                Competitions changeComp = new Competitions() { Id = id, Difficulty = newCompDiff };
+
+                rest.Put<Competitions>(changeComp, "changeCompDiff");
+
+                var c = rest.GetSingle<Competitions>("comp", changeComp.Id);
+                
+                Console.WriteLine(c.ToString());
+                Console.ReadLine();
+            }
+            catch (InvalidOperationException invalid)
+            {
+                Console.WriteLine(invalid.Message);
+                Console.WriteLine("Try again!");
+                Console.ReadLine();
+            }
+            catch (FormatException ex)
+            {
+                Console.WriteLine(ex.Message);
+                Console.ReadLine();
+            }
+        }
+
+        private static void ChangeLookDifficulty(RestService rest)
+        {
+            Console.WriteLine("\n:: CHANGE THE DIFFICULTY OF A LOOK ::\n");
+            try
+            {
+                Console.WriteLine("Which look's difficulty do you want to change? Give me an ID number!");
+                int id = int.Parse(Console.ReadLine());
+                Console.WriteLine("What do you want the new difficulty to be? It must be between 1 and 5!  (Can be 1 and 5 as well)");
+                int newLookDiff = int.Parse(Console.ReadLine());
+
+                Looks changeLook = new Looks() { Id = id, Difficulty = newLookDiff };
+
+                rest.Put<Looks>(changeLook, "changeLookDiff");
+
+                var l = rest.GetSingle<Looks>("look", changeLook.Id);
+
+                Console.WriteLine(l.ToString());
+                Console.ReadLine();
+            }
+            catch (InvalidOperationException invalid)
+            {
+                Console.WriteLine(invalid.Message);
+                Console.WriteLine("Try again!");
+                Console.ReadLine();
+            }
+            catch (FormatException ex)
+            {
+                Console.WriteLine(ex.Message);
+                Console.ReadLine();
+            }
+        }
+
+        private static void ChangeTheme(RestService rest)
+        {
+            Console.WriteLine("\n:: CHANGE THE THEME OF A LOOK ::\n");
+
+            try
+            {
+                Console.WriteLine("Which look's theme do you want to change? Give me an ID number!");
+                int id = int.Parse(Console.ReadLine());
+                Console.WriteLine("What do you want the new theme to be?");
+                string newTheme = Console.ReadLine();
+
+                Looks changeLook = new Looks() { Id = id, Theme = newTheme };
+
+                rest.Put<Looks>(changeLook, "changeTheme");
+
+                var l = rest.GetSingle<Looks>("look", changeLook.Id);
+
+                Console.WriteLine(l.ToString());
+                Console.ReadLine();
+            }
+            catch (InvalidOperationException invalid)
+            {
+                Console.WriteLine(invalid.Message);
+                Console.WriteLine("Try again!");
+                Console.ReadLine();
+            }
+            catch (FormatException ex)
+            {
+                Console.WriteLine(ex.Message);
+                Console.ReadLine();
+            }
+        }
+
+        private static void DeleteComp(RestService rest)
         {
             Console.WriteLine("\n:: DELETE AN UNWANTED COMPETITION ::\n");
 
@@ -197,7 +392,7 @@ namespace U4WM55_HFT_2021221.Client
             }
         }
 
-        private static void DeleteMUA()
+        private static void DeleteMUA(RestService rest)
         {
             Console.WriteLine("\n:: DELETE AN UNWANTED PARTICIPANT ::\n");
 
@@ -232,7 +427,7 @@ namespace U4WM55_HFT_2021221.Client
             }
         }
 
-        private static void DeleteLook()
+        private static void DeleteLook(RestService rest)
         {
             Console.WriteLine("\n:: DELETE AN UNWANTED MAKEUP LOOK ::\n");
 
@@ -267,11 +462,9 @@ namespace U4WM55_HFT_2021221.Client
             }
         }
 
-        private static void CreateComp()
+        private static void CreateComp(RestService rest)
         {
             Console.WriteLine("\n:: ADD A NEW COMPETITION ::\n");
-
-            Competitions newComp = new Competitions();
 
             Console.WriteLine("Please give me the country where the competition takes place!");
             string place = Console.ReadLine();
@@ -284,11 +477,14 @@ namespace U4WM55_HFT_2021221.Client
             Console.WriteLine("Please tell me who will be the head of the jury!");
             string headOfJury = Console.ReadLine();
 
-            newComp.Place = place;
-            newComp.Difficulty = difficulty;
-            newComp.CompDate = compDate;
-            newComp.HowManyJudges = howManyJudges;
-            newComp.HeadOfJury = headOfJury;
+            Competitions newComp = new Competitions()
+            {
+                Place = place,
+                Difficulty = difficulty,
+                CompDate = compDate,
+                HowManyJudges = howManyJudges,
+                HeadOfJury = headOfJury
+            };
 
             try
             {
@@ -308,11 +504,9 @@ namespace U4WM55_HFT_2021221.Client
             }
         }
 
-        private static void CreateLook()
+        private static void CreateLook(RestService rest)
         {
             Console.WriteLine("\n:: CREATE A NEW MAKEUP LOOK ::\n");
-
-            Looks newLook = new Looks();
 
             Console.WriteLine("Please give me the theme of the look!");
             string theme = Console.ReadLine();
@@ -327,12 +521,15 @@ namespace U4WM55_HFT_2021221.Client
             Console.WriteLine("Please tell me at which competition the muas will have to complete this look!  Give me an ID number!");
             int compId = int.Parse(Console.ReadLine());
 
-            newLook.Theme = theme;
-            newLook.Brand = brand;
-            newLook.Budget = budget;
-            newLook.TimeFrame = timeFrame;
-            newLook.Difficulty = difficulty;
-            newLook.CompId = compId;
+            Looks newLook = new Looks()
+            {
+                Theme = theme,
+                Brand = brand,
+                Budget = budget,
+                TimeFrame = timeFrame,
+                Difficulty = difficulty,
+                CompId = compId
+            };
 
             try
             {
@@ -352,65 +549,76 @@ namespace U4WM55_HFT_2021221.Client
             }
         }
 
-        //private static void ChangeNumOfModels()
-        //{
-        //    Console.WriteLine("\n:: CHANGE THE NUMBER OF MODELS FOR A PARTICIPANT ::\n");
+        private static void ChangeNumOfModels(RestService rest)
+        {
+            Console.WriteLine("\n:: CHANGE THE NUMBER OF MODELS FOR A PARTICIPANT ::\n");
 
-        //    Console.WriteLine("Which MUA's numer of models do you want to change? Give me an ID number!");
-        //    try
-        //    {
-        //        int id = int.Parse(Console.ReadLine());
-        //        Console.WriteLine("What do you want the new number of models to be? It can be 1, 2 or 3.");
-        //        int newNum = int.Parse(Console.ReadLine());
-        //        participantLogic.ChangeNumOfModels(id, newNum);
-        //        Console.WriteLine(statisticsLogic.GetOneMUA(id).ToString());
-        //        Console.ReadLine();
-        //    }
-        //    catch (InvalidOperationException invalid)
-        //    {
-        //        Console.WriteLine(invalid.Message);
-        //        Console.WriteLine("Try again!");
-        //        Console.ReadLine();
-        //    }
-        //    catch (FormatException ex)
-        //    {
-        //        Console.WriteLine(ex.Message);
-        //        Console.ReadLine();
-        //    }
-        //}
+            Console.WriteLine("Which MUA's numer of models do you want to change? Give me an ID number!");
+            try
+            {
+                int id = int.Parse(Console.ReadLine());
+                Console.WriteLine("What do you want the new number of models to be? It can be 1, 2 or 3.");
+                int newNum = int.Parse(Console.ReadLine());
 
-        //private static void UpgradeMUA()
-        //{
-        //    Console.WriteLine("\n:: CHANGE THE EXPERIENCE LEVEL OF A PARTICIPANT ::\n");
+                MUAs changeMUA = new MUAs() { Id = id, NumOfModels = newNum };
 
-        //    Console.WriteLine("Which MUA's experience level do you want to upgrade? Give me an ID number!");
-        //    try
-        //    {
-        //        int id = int.Parse(Console.ReadLine());
-        //        Console.WriteLine("What do you want the new experience level to be? It must be between 1 and 10! (Can be 1 and 10 as well)");
-        //        int newLvl = int.Parse(Console.ReadLine());
-        //        participantLogic.UpgradeMUA(id, newLvl);
-        //        Console.WriteLine(statisticsLogic.GetOneMUA(id).ToString());
-        //        Console.ReadLine();
-        //    }
-        //    catch (InvalidOperationException invalid)
-        //    {
-        //        Console.WriteLine(invalid.Message);
-        //        Console.WriteLine("Try again!");
-        //        Console.ReadLine();
-        //    }
-        //    catch (FormatException ex)
-        //    {
-        //        Console.WriteLine(ex.Message);
-        //        Console.ReadLine();
-        //    }
-        //}
+                rest.Put<MUAs>(changeMUA, "changeTheme");
 
-        private static void CreateMUA()
+                var m = rest.GetSingle<MUAs>("mua", changeMUA.Id);
+
+                Console.WriteLine(m.ToString());
+                Console.ReadLine();
+            }
+            catch (InvalidOperationException invalid)
+            {
+                Console.WriteLine(invalid.Message);
+                Console.WriteLine("Try again!");
+                Console.ReadLine();
+            }
+            catch (FormatException ex)
+            {
+                Console.WriteLine(ex.Message);
+                Console.ReadLine();
+            }
+        }
+
+        private static void UpgradeMUA(RestService rest)
+        {
+            Console.WriteLine("\n:: CHANGE THE EXPERIENCE LEVEL OF A PARTICIPANT ::\n");
+
+            Console.WriteLine("Which MUA's experience level do you want to upgrade? Give me an ID number!");
+            try
+            {
+                int id = int.Parse(Console.ReadLine());
+                Console.WriteLine("What do you want the new experience level to be? It must be between 1 and 10! (Can be 1 and 10 as well)");
+                int newLvl = int.Parse(Console.ReadLine());
+
+                MUAs changeMUA = new MUAs() { Id = id, ExperienceLvl = newLvl };
+
+                rest.Put<MUAs>(changeMUA, "upgrade");
+
+                var m = rest.GetSingle<MUAs>("mua", changeMUA.Id);
+
+                Console.WriteLine(m.ToString());
+
+                Console.ReadLine();
+            }
+            catch (InvalidOperationException invalid)
+            {
+                Console.WriteLine(invalid.Message);
+                Console.WriteLine("Try again!");
+                Console.ReadLine();
+            }
+            catch (FormatException ex)
+            {
+                Console.WriteLine(ex.Message);
+                Console.ReadLine();
+            }
+        }
+
+        private static void CreateMUA(RestService rest)
         {
             Console.WriteLine("\n:: REGISTER A NEW PARTICIPANT ::\n");
-
-            MUAs newMUA = new MUAs();
 
             Console.WriteLine("Please give me a full name!");
             string name = Console.ReadLine();
@@ -431,15 +639,18 @@ namespace U4WM55_HFT_2021221.Client
 
             double initialPoints = 0;
 
-            newMUA.Name = name;
-            newMUA.Gender = gender;
-            newMUA.Country = country;
-            newMUA.ExperienceLvl = experienceLvl;
-            newMUA.Phone = phone;
-            newMUA.Email = email;
-            newMUA.Sponsor = sponsor;
-            newMUA.NumOfModels = numOfModels;
-            newMUA.Points = initialPoints;
+            MUAs newMUA = new MUAs()
+            {
+                Name = name,
+                Gender = gender,
+                Country = country,
+                ExperienceLvl = experienceLvl,
+                Phone = phone,
+                Email = email,
+                Sponsor = sponsor,
+                NumOfModels = numOfModels,
+                Points = initialPoints
+            };
 
             try
             {
@@ -459,19 +670,20 @@ namespace U4WM55_HFT_2021221.Client
             }
         }
 
-        private static void CreateConn()
+        private static void CreateConn(RestService rest)
         {
             Console.WriteLine("\n:: CREATE A NEW CONNECTION (ADDING MUA TO COMPETITION) ::\n");
-
-            Connector newConn = new Connector();
 
             Console.WriteLine("Please tell me the ID of the competition to which you want to add a MUA to!");
             int compId = int.Parse(Console.ReadLine());
             Console.WriteLine("Please tell me the ID of the MUA who you want to add to the competition!");
             int muaId = int.Parse(Console.ReadLine());
 
-            newConn.CompetitionId = compId;
-            newConn.MUAsId = muaId;
+            Connector newConn = new Connector()
+            {
+                CompetitionId = compId,
+                MUAsId = muaId
+            };
 
             try
             {
@@ -491,7 +703,7 @@ namespace U4WM55_HFT_2021221.Client
             }
         }
 
-        private static void DeleteConn()
+        private static void DeleteConn(RestService rest)
         {
             Console.WriteLine("\n:: DELETE AN UNWANTED CONNECTION ::\n");
 
@@ -538,16 +750,20 @@ namespace U4WM55_HFT_2021221.Client
         //    Console.ReadLine();
         //}
 
-        //private static void Genders()
-        //{
-        //    Console.WriteLine("\n:: LISTING BY GENDER ::\n");
-        //    foreach (var item in participantLogic.Genders())
-        //    {
-        //        Console.WriteLine(item);
-        //    }
+        private static void Genders(RestService rest)
+        {
+            Console.WriteLine("\n:: LISTING BY GENDER ::\n");
 
-        //    Console.ReadLine();
-        //}
+            List<MUAs> gendersList = rest.Get<GendersResult>
+            
+
+            foreach (var item in participantLogic.Genders())
+            {
+                Console.WriteLine(item);
+            }
+
+            Console.ReadLine();
+        }
 
         //private static void SponsorBrands()
         //{

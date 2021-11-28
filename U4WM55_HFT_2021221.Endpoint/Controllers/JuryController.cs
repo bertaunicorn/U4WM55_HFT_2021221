@@ -16,61 +16,61 @@ namespace U4WM55_HFT_2021221.Endpoint.Controllers
             this.jl = jl;
         }
 
-        [HttpPost]
+        [HttpPost("competition")]
         public void PostC([FromBody] Competitions competition)
         {
             jl.CreateComp(competition.Place, competition.Difficulty, competition.CompDate, competition.HowManyJudges, competition.HeadOfJury);
         }
 
-        [HttpPost]
+        [HttpPost("look")]
         public void PostL([FromBody] Looks look)
         {
             jl.CreateLook(look.Theme, look.Brand, look.Budget, look.TimeFrame, look.Difficulty, (int)look.CompId);
         }
 
-        [HttpDelete("{id}")]
+        [HttpDelete("delete/{id}")]
         public void DeleteMUA(int id)
         {
             jl.DeleteMUA(id);
         }
 
-        [HttpDelete("{id}")]
+        [HttpDelete("delete/{id}")]
         public void DeleteComp(int id)
         {
             jl.DeleteComp(id);
         }
 
-        [HttpDelete("{id}")]
+        [HttpDelete("delete/{id}")]
         public void DeleteLook(int id)
         {
             jl.DeleteLook(id);
         }
 
-        [HttpPut]
+        [HttpPut("lookDiff")]
         public void PutLD([FromBody] Looks look, int newDiff)
         {
             jl.ChangeLookDifficulty(look.Id, newDiff);
         }
 
-        [HttpPut]
+        [HttpPut("theme")]
         public void PutT([FromBody] Looks look, string newTheme)
         {
             jl.ChangeTheme(look.Id, newTheme);
         }
 
-        [HttpPut]
+        [HttpPut("compDiff")]
         public void PutCD([FromBody] Competitions comp, int newDiff)
         {
             jl.ChangeCompDifficulty(comp.Id, newDiff);
         }
 
-        [HttpGet]
+        [HttpGet("sponsors")]
         public IList<SponsorBrandsResult> SponsorBrands()
         {
             return jl.SponsorBrands();
         }
 
-        [HttpGet]
+        [HttpGet("howMany")]
         public IList<HowManyLooksResult> HowManyLooks()
         {
             return jl.HowManyLooks();

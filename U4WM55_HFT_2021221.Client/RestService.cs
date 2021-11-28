@@ -5,7 +5,7 @@ using System.Net.Http.Json;
 
 namespace U4WM55_HFT_2021221.Client
 {
-    class RestService
+    public class RestService
     {
         HttpClient client;
 
@@ -43,10 +43,10 @@ namespace U4WM55_HFT_2021221.Client
             return items;
         }
 
-        public T GetSingle<T>(string endpoint)
+        public T GetSingle<T>(string endpoint, int variable)
         {
             T item = default(T);
-            HttpResponseMessage response = client.GetAsync(endpoint).GetAwaiter().GetResult();
+            HttpResponseMessage response = client.GetAsync(endpoint + "/" + variable).GetAwaiter().GetResult();
             if (response.IsSuccessStatusCode)
             {
                 item = response.Content.ReadAsAsync<T>().GetAwaiter().GetResult();

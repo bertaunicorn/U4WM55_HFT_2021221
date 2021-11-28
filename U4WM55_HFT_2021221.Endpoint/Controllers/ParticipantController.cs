@@ -5,7 +5,7 @@ using U4WM55_HFT_2021221.Models;
 
 namespace U4WM55_HFT_2021221.Endpoint.Controllers
 {
-    [Route("[controller]/[action]")]
+    [Route("[controller]")]
     [ApiController]
     public class ParticipantController :ControllerBase
     {
@@ -16,43 +16,43 @@ namespace U4WM55_HFT_2021221.Endpoint.Controllers
             this.pl = pl;
         }
 
-        [HttpPost]
+        [HttpPost("mua")]
         public void PostM([FromBody] MUAs mua)
         {
             pl.CreateMUA(mua.Name, mua.Gender, mua.Country, mua.ExperienceLvl, mua.Phone, mua.Email, mua.Sponsor, mua.NumOfModels, mua.Points);
         }
 
-        [HttpPost]
+        [HttpPost("connection")]
         public void PostC([FromBody] Connector conn)
         {
             pl.CreateConnection(conn.CompetitionId, conn.MUAsId);
         }
 
-        [HttpDelete("{id}")]
+        [HttpDelete("delete/{id}")]
         public void Delete(int id)
         {
             pl.DeleteConnection(id);
         }
 
-        [HttpPut]
+        [HttpPut("numModels")]
         public void PutNM([FromBody] MUAs mua, int newNum)
         {
             pl.ChangeNumOfModels(mua.Id, newNum);
         }
 
-        [HttpPut]
+        [HttpPut("upgradeMua")]
         public void PutM([FromBody] MUAs mua, int newLvl)
         {
             pl.UpgradeMUA(mua.Id, newLvl);
         }
 
-        [HttpGet]
+        [HttpGet("genders")]
         public IList<GendersResult> Genders()
         {
             return pl.Genders();
         }
 
-        [HttpGet]
+        [HttpGet("country")]
         public IList<SameCountryResult> SameCountry()
         {
             return pl.SameCountry();
