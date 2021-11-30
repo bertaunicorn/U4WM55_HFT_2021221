@@ -141,15 +141,24 @@ namespace U4WM55_HFT_2021221.Client
 
         private static void GetOneComp(RestService rest)
         {
+            
+
             Console.WriteLine("\n:: FIND ONE ELEMENT ::\n");
             Console.WriteLine("Which competition do you want to find? Give me an ID number!");
             try
             {
                 int id = int.Parse(Console.ReadLine());
 
-                var comp = rest.GetSingle<Competitions>("statistics/comp/{id}", id);
+                var comps = rest.Get<Competitions>("statistics/allComps");
 
-                Console.WriteLine(comp.ToString());
+                foreach (var c in comps.Where(x => x.Id == id))
+                {
+                    Console.WriteLine(c.ToString());
+                }
+
+                //var comp = rest.Get<Competitions>(id, "statistics/comp/{id}");
+
+                //Console.WriteLine(comp.ToString());
             }
             catch (InvalidOperationException invalid)
             {
@@ -173,9 +182,16 @@ namespace U4WM55_HFT_2021221.Client
             {
                 int id = int.Parse(Console.ReadLine());
 
-                var look = rest.GetSingle<Looks>("statistics/look/{id}", id);
+                var looks = rest.Get<Looks>("statistics/allLooks");
 
-                Console.WriteLine(look.ToString());
+                foreach (var l in looks.Where(x => x.Id == id))
+                {
+                    Console.WriteLine(l.ToString());
+                }
+
+                //var look = rest.GetSingle<Looks>("statistics/look/{id}", id);
+
+                //Console.WriteLine(look.ToString());
             }
             catch (InvalidOperationException invalid)
             {
@@ -202,9 +218,16 @@ namespace U4WM55_HFT_2021221.Client
                 {
                     int id = int.Parse(Console.ReadLine());
 
-                    var mua = rest.GetSingle<MUAs>("statistics/mua/{id}", id);
+                    var muas = rest.Get<MUAs>("statistics/allMUAs");
 
-                    Console.WriteLine(mua.ToString());
+                    foreach (var m in muas.Where(x => x.Id == id))
+                    {
+                        Console.WriteLine(m.ToString());
+                    }
+
+                    //var mua = rest.GetSingle<MUAs>("statistics/mua/{id}", id);
+
+                    //Console.WriteLine(mua.ToString());
 
                     done = true;
                 }
@@ -236,9 +259,16 @@ namespace U4WM55_HFT_2021221.Client
                 {
                     int id = int.Parse(Console.ReadLine());
 
-                    var conn = rest.GetSingle<Connector>("statistics/conn/{id}", id);
+                    var conns = rest.Get<Connector>("statistics/allConns");
 
-                    Console.WriteLine(conn.ToString());
+                    foreach (var c in conns.Where(x => x.CCMId == id))
+                    {
+                        Console.WriteLine(c.ToString());
+                    }
+
+                    //var conn = rest.GetSingle<Connector>("statistics/conn/{id}", id);
+
+                    //Console.WriteLine(conn.ToString());
 
                     done = true;
                 }
@@ -270,14 +300,21 @@ namespace U4WM55_HFT_2021221.Client
                 Console.WriteLine("What do you want the new difficulty to be? It must be between 1 and 10! (Can be 1 and 10 as well)");
                 int newCompDiff = int.Parse(Console.ReadLine());
 
-                Competitions changeComp = new Competitions() { Id = id, Difficulty = newCompDiff };
+                var comps = rest.Get<Competitions>("statistics/allComps");
 
-                rest.Put<Competitions>(changeComp, "jury/compDiff");
+                foreach (var temp in comps.Where(x => x.Id == id))
+                {
+                    rest.Put<Competitions>(temp, "jury/compDiff");
 
-                var c = rest.GetSingle<Competitions>("statistics/comp", changeComp.Id);
-                
-                Console.WriteLine(c.ToString());
-                Console.ReadLine();
+                    Competitions changeComp = new Competitions() { Id = id, Difficulty = newCompDiff };
+
+                    //rest.Put<Competitions>(changeComp, "jury/compDiff");
+
+                    var c = rest.GetSingle<Competitions>("statistics/comp", temp.Id);
+
+                    Console.WriteLine(c.ToString());
+                    Console.ReadLine();
+                }
             }
             catch (InvalidOperationException invalid)
             {
@@ -302,14 +339,25 @@ namespace U4WM55_HFT_2021221.Client
                 Console.WriteLine("What do you want the new difficulty to be? It must be between 1 and 5!  (Can be 1 and 5 as well)");
                 int newLookDiff = int.Parse(Console.ReadLine());
 
-                Looks changeLook = new Looks() { Id = id, Difficulty = newLookDiff };
+                var looks = rest.Get<Looks>("statistics/allLooks");
 
-                rest.Put<Looks>(changeLook, "jury/lookDiff");
+                foreach (var temp in looks.Where(x => x.Id == id))
+                {
+                    rest.Put<Looks>(temp, "jury/lookDiff");
 
-                var l = rest.GetSingle<Looks>("statistics/look", changeLook.Id);
+                    Looks changeLook = new Looks() { Id = id, Difficulty = newLookDiff };
 
-                Console.WriteLine(l.ToString());
-                Console.ReadLine();
+                    //rest.Put<Looks>(changeLook, "jury/lookDiff");
+
+                    var l = rest.GetSingle<Looks>("statistics/look", temp.Id);
+
+                    Console.WriteLine(l.ToString());
+                    Console.ReadLine();
+                }
+
+                
+
+                
             }
             catch (InvalidOperationException invalid)
             {
