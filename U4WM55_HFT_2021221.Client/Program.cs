@@ -64,7 +64,7 @@ namespace U4WM55_HFT_2021221.Client
 
             var subMenuQuerys = new ConsoleMenu()
                 .Add(">> SAME COUNTRY FINDER", () => SameCountry(rest))
-                //.Add(">> GENDERS EVALUATION", () => Genders(rest))
+                .Add(">> GENDERS EVALUATION", () => Genders(rest))
                 //.Add(">> LOOK AT BRANDS", () => SponsorBrands(rest))
                 //.Add(">> HOW MANY LOOKS", () => HowManyLooks(rest))
                 .Add(">> BACK TO MAIN MENU", ConsoleMenu.Close);
@@ -816,7 +816,7 @@ namespace U4WM55_HFT_2021221.Client
         {
             Console.WriteLine("\n:: IS THERE A MUA FROM CURRENT COUNTRY ::\n");
 
-            List<SponsorBrandsResult> countryList = rest.Get<SponsorBrandsResult>("participant/country");
+            var countryList = rest.Get<SponsorBrandsResult>("participant/country");
 
             foreach (var item in countryList)
             {
@@ -824,20 +824,17 @@ namespace U4WM55_HFT_2021221.Client
             }
         }
 
-        //private static void Genders(RestService rest)
-        //{
-        //    Console.WriteLine("\n:: LISTING BY GENDER ::\n");
+        private static void Genders(RestService rest)
+        {
+            Console.WriteLine("\n:: LISTING BY GENDER ::\n");
 
-        //    List<MUAs> gendersList = rest.Get<GendersResult>
+            var genderList = rest.Get<GendersResult>("participant/genders");
 
-
-        //    foreach (var item in participantLogic.Genders())
-        //    {
-        //        Console.WriteLine(item);
-        //    }
-
-        //    Console.ReadLine();
-        //}
+            foreach (var item in genderList)
+            {
+                Console.WriteLine(item);
+            }
+        }
 
         //private static void SponsorBrands()
         //{
