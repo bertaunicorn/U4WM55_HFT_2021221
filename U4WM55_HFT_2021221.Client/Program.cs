@@ -302,18 +302,23 @@ namespace U4WM55_HFT_2021221.Client
 
                 var comps = rest.Get<Competitions>("statistics/allComps");
 
-                foreach (var temp in comps.Where(x => x.Id == id))
+                foreach (var temp in comps)
                 {
-                    rest.Put<Competitions>(temp, "jury/compDiff");
+                    if (temp.Id == id)
+                    {
+                        temp.Difficulty = newCompDiff;
+                    
+                        rest.Put<Competitions>(temp, "jury/compDiff");
 
-                    Competitions changeComp = new Competitions() { Id = id, Difficulty = newCompDiff };
+                        //Competitions changeComp = new Competitions() { Id = id, Difficulty = newCompDiff };
 
-                    //rest.Put<Competitions>(changeComp, "jury/compDiff");
+                        //rest.Put<Competitions>(changeComp, "jury/compDiff");
 
-                    var c = rest.GetSingle<Competitions>("statistics/comp", temp.Id);
+                        Console.WriteLine(temp.ToString());
+                        Console.ReadLine();
 
-                    Console.WriteLine(c.ToString());
-                    Console.ReadLine();
+                    }
+                    
                 }
             }
             catch (InvalidOperationException invalid)
