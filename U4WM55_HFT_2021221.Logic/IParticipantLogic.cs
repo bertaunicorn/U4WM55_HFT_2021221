@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
+using U4WM55_HFT_2021221.Models;
 
 namespace U4WM55_HFT_2021221.Logic
 {
@@ -61,16 +62,16 @@ namespace U4WM55_HFT_2021221.Logic
         /// <returns>Returns an IList.</returns>
         IList<SameCountryResult> SameCountry();
 
-        /// <summary>
-        /// The async version of my Genders() method.
-        /// </summary>
-        /// <returns>Returns a Taks.</returns>
-        public Task<IList<GendersResult>> GendersAsync();
+        ///// <summary>
+        ///// The async version of my Genders() method.
+        ///// </summary>
+        ///// <returns>Returns a Taks.</returns>
+        //public Task<IList<GendersResult>> GendersAsync();
 
-        /// <summary>
-        /// The async version of my SameCountry() method.
-        /// </summary>
-        /// <returns>Returns a Taks.</returns>
-        public Task<IList<SameCountryResult>> SameCountryAsync();
+        ///// <summary>
+        ///// The async version of my SameCountry() method.
+        ///// </summary>
+        ///// <returns>Returns a Taks.</returns>
+        //public Task<IList<SameCountryResult>> SameCountryAsync();
     }
 }

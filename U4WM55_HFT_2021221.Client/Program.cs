@@ -63,10 +63,10 @@ namespace U4WM55_HFT_2021221.Client
                 .Add(">> BACK TO MAIN MENU", ConsoleMenu.Close);
 
             var subMenuQuerys = new ConsoleMenu()
-                //.Add(">> SAME COUNTRY FINDER", () => SameCountry())
-                //.Add(">> GENDERS EVALUATION", () => Genders())
-                //.Add(">> LOOK AT BRANDS", () => SponsorBrands())
-                //.Add(">> HOW MANY LOOKS", () => HowManyLooks())
+                .Add(">> SAME COUNTRY FINDER", () => SameCountry(rest))
+                //.Add(">> GENDERS EVALUATION", () => Genders(rest))
+                //.Add(">> LOOK AT BRANDS", () => SponsorBrands(rest))
+                //.Add(">> HOW MANY LOOKS", () => HowManyLooks(rest))
                 .Add(">> BACK TO MAIN MENU", ConsoleMenu.Close);
 
             var menu = new ConsoleMenu()
@@ -812,26 +812,24 @@ namespace U4WM55_HFT_2021221.Client
             }
         }
 
-        //var avgpricebybrands = rest
-        //    .Get<KeyValuePair<string, double>>("stat/avgpricebybrands");
+        private static void SameCountry(RestService rest)
+        {
+            Console.WriteLine("\n:: IS THERE A MUA FROM CURRENT COUNTRY ::\n");
 
-        //private static void SameCountry()
-        //{
-        //    Console.WriteLine("\n:: IS THERE A MUA FROM CURRENT COUNTRY ::\n");
-        //    foreach (var item in rest.)
-        //    {
-        //        Console.WriteLine(item);
-        //    }
+            List<SponsorBrandsResult> countryList = rest.Get<SponsorBrandsResult>("participant/country");
 
-        //    Console.ReadLine();
-        //}
+            foreach (var item in countryList)
+            {
+                Console.WriteLine(item);
+            }
+        }
 
         //private static void Genders(RestService rest)
         //{
         //    Console.WriteLine("\n:: LISTING BY GENDER ::\n");
 
         //    List<MUAs> gendersList = rest.Get<GendersResult>
-            
+
 
         //    foreach (var item in participantLogic.Genders())
         //    {

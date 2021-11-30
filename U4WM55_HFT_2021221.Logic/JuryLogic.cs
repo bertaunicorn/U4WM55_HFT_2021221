@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
 using U4WM55_HFT_2021221.Repository;
 using U4WM55_HFT_2021221.Models;
 
@@ -227,8 +226,8 @@ namespace U4WM55_HFT_2021221.Logic
         /// <returns>This returns an IList type variable.</returns>
         public IList<HowManyLooksResult> HowManyLooks()
         {
-            IList<Competitions> compList = this.compRepo.GetAll().ToList();
-            IList<Looks> lookList = this.lookRepo.GetAll().ToList();
+            IQueryable<Competitions> compList = this.compRepo.GetAll();
+            IQueryable<Looks> lookList = this.lookRepo.GetAll();
 
             var looksAtComp = from looks in lookList
                               join comp in compList
@@ -244,22 +243,22 @@ namespace U4WM55_HFT_2021221.Logic
             return looksAtComp.ToList();
         }
 
-        /// <summary>
-        /// The async version of my SponsorBrands() method.
-        /// </summary>
-        /// <returns>Returns a Taks.</returns>
-        public Task<IList<SponsorBrandsResult>> SponsorBrandsAsync()
-        {
-            return Task.Run(this.SponsorBrands);
-        }
+        ///// <summary>
+        ///// The async version of my SponsorBrands() method.
+        ///// </summary>
+        ///// <returns>Returns a Taks.</returns>
+        //public Task<IList<SponsorBrandsResult>> SponsorBrandsAsync()
+        //{
+        //    return Task.Run(this.SponsorBrands);
+        //}
 
-        /// <summary>
-        /// The async version of my HowManyLooks() method.
-        /// </summary>
-        /// <returns>Returns a Taks.</returns>
-        public Task<IList<HowManyLooksResult>> HowManyLooksAsync()
-        {
-            return Task.Run(this.HowManyLooks);
-        }
+        ///// <summary>
+        ///// The async version of my HowManyLooks() method.
+        ///// </summary>
+        ///// <returns>Returns a Taks.</returns>
+        //public Task<IList<HowManyLooksResult>> HowManyLooksAsync()
+        //{
+        //    return Task.Run(this.HowManyLooks);
+        //}
     }
 }

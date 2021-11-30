@@ -1,24 +1,19 @@
-﻿namespace U4WM55_HFT_2021221.Logic
+﻿namespace U4WM55_HFT_2021221.Models
 {
     /// <summary>
-    /// Result of the Genders linq query.
+    /// Result of the HowManyLooks linq query.
     /// </summary>
-    public class GendersResult
+    public class HowManyLooksResult
     {
         /// <summary>
-        /// Gets or sets the ID of the competitions.
+        /// Gets or sets the ID number of the competition we are looking at.
         /// </summary>
         public int CompetitionID { get; set; }
 
         /// <summary>
-        /// Gets or sets the genders of MUAs at the competitions.
+        /// Gets or sets the number of looks at that competition.
         /// </summary>
-        public string Gender { get; set; }
-
-        /// <summary>
-        /// Gets or sets the number of MUAs from each gender there are at competitions.
-        /// </summary>
-        public int Number { get; set; }
+        public int NumberOfLooks { get; set; }
 
         /// <summary>
         /// Overriding the ToString metod to get a nice message.
@@ -26,7 +21,7 @@
         /// <returns>A pretty and readable string.</returns>
         public override string ToString()
         {
-            return $"At competition number {this.CompetitionID} from gender {this.Gender} there were {this.Number} number of participants. ";
+            return $"At competition number {this.CompetitionID}, there are {this.NumberOfLooks} looks to be created.";
         }
 
         /// <summary>
@@ -35,22 +30,21 @@
         /// <returns>A cool useful integer.</returns>
         public override int GetHashCode()
         {
-            return this.CompetitionID + this.Gender.Length + this.Number;
+            return this.CompetitionID + this.NumberOfLooks;
         }
 
         /// <summary>
         /// Checks if it is a unique thing.
         /// </summary>
-        /// <param name="obj">A GendersResult object hopefully.</param>
+        /// <param name="obj">A HowManyLooksResult object hopefully.</param>
         /// <returns>Returns a boolean.</returns>
         public override bool Equals(object obj)
         {
-            if (obj is GendersResult)
+            if (obj is HowManyLooksResult)
             {
-                GendersResult test = obj as GendersResult;
+                HowManyLooksResult test = obj as HowManyLooksResult;
                 if (this.CompetitionID == test.CompetitionID &&
-                    this.Gender == test.Gender &&
-                    this.Number == test.Number)
+                    this.NumberOfLooks == test.NumberOfLooks)
                 {
                     return true;
                 }

@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using U4WM55_HFT_2021221.Models;
 using U4WM55_HFT_2021221.Repository;
 
@@ -156,8 +154,8 @@ namespace U4WM55_HFT_2021221.Logic
         /// <returns>Returns an IList.</returns>
         public IList<GendersResult> Genders()
         {
-            IList<MUAs> muaList = this.muaRepo.GetAll().ToList();
-            IList<Connector> connList = this.connRepo.GetAll().ToList();
+            IQueryable<MUAs> muaList = this.muaRepo.GetAll();
+            IQueryable<Connector> connList = this.connRepo.GetAll();
 
             var muaConn = from conn in connList
                           join mua in muaList
@@ -226,22 +224,22 @@ namespace U4WM55_HFT_2021221.Logic
             return compConn.ToList();
         }
 
-        /// <summary>
-        /// The async version of my Genders() method.
-        /// </summary>
-        /// <returns>Returns a Taks.</returns>
-        public Task<IList<GendersResult>> GendersAsync()
-        {
-            return Task.Run(this.Genders);
-        }
+        ///// <summary>
+        ///// The async version of my Genders() method.
+        ///// </summary>
+        ///// <returns>Returns a Taks.</returns>
+        //public Task<IList<GendersResult>> GendersAsync()
+        //{
+        //    return Task.Run(this.Genders);
+        //}
 
-        /// <summary>
-        /// The async version of my SameCountry() method.
-        /// </summary>
-        /// <returns>Returns a Taks.</returns>
-        public Task<IList<SameCountryResult>> SameCountryAsync()
-        {
-            return Task.Run(this.SameCountry);
-        }
+        ///// <summary>
+        ///// The async version of my SameCountry() method.
+        ///// </summary>
+        ///// <returns>Returns a Taks.</returns>
+        //public Task<IList<SameCountryResult>> SameCountryAsync()
+        //{
+        //    return Task.Run(this.SameCountry);
+        //}
     }
 }

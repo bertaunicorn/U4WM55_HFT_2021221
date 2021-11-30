@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using U4WM55_HFT_2021221.Models;
 
 namespace U4WM55_HFT_2021221.Logic
 {
@@ -81,16 +82,16 @@ namespace U4WM55_HFT_2021221.Logic
         /// <returns>This returns an IList type variable.</returns>
         IList<HowManyLooksResult> HowManyLooks();
 
-        /// <summary>
-        /// The async version of my SponsorBrands() method.
-        /// </summary>
-        /// <returns>Returns a Taks.</returns>
-        public Task<IList<SponsorBrandsResult>> SponsorBrandsAsync();
+        ///// <summary>
+        ///// The async version of my SponsorBrands() method.
+        ///// </summary>
+        ///// <returns>Returns a Taks.</returns>
+        //public Task<IList<SponsorBrandsResult>> SponsorBrandsAsync();
 
-        /// <summary>
-        /// The async version of my HowManyLooks() method.
-        /// </summary>
-        /// <returns>Returns a Taks.</returns>
-        public Task<IList<HowManyLooksResult>> HowManyLooksAsync();
+        ///// <summary>
+        ///// The async version of my HowManyLooks() method.
+        ///// </summary>
+        ///// <returns>Returns a Taks.</returns>
+        //public Task<IList<HowManyLooksResult>> HowManyLooksAsync();
     }
 }

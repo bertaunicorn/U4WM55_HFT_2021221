@@ -1,4 +1,4 @@
-﻿namespace U4WM55_HFT_2021221.Logic
+﻿namespace U4WM55_HFT_2021221.Models
 {
     /// <summary>
     /// Result of the SameCountry linq query.
