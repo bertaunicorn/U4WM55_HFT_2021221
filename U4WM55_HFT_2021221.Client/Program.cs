@@ -151,9 +151,12 @@ namespace U4WM55_HFT_2021221.Client
 
                 var comps = rest.Get<Competitions>("statistics/allComps");
 
-                foreach (var c in comps.Where(x => x.Id == id))
+                foreach (var c in comps)
                 {
-                    Console.WriteLine(c.ToString());
+                    if (c.Id == id)
+                    {
+                        Console.WriteLine(c.ToString());
+                    }
                 }
 
                 //var comp = rest.Get<Competitions>(id, "statistics/comp/{id}");
@@ -184,9 +187,12 @@ namespace U4WM55_HFT_2021221.Client
 
                 var looks = rest.Get<Looks>("statistics/allLooks");
 
-                foreach (var l in looks.Where(x => x.Id == id))
+                foreach (var l in looks)
                 {
-                    Console.WriteLine(l.ToString());
+                    if (l.Id == id)
+                    {
+                        Console.WriteLine(l.ToString());
+                    }
                 }
 
                 //var look = rest.GetSingle<Looks>("statistics/look/{id}", id);
@@ -220,9 +226,12 @@ namespace U4WM55_HFT_2021221.Client
 
                     var muas = rest.Get<MUAs>("statistics/allMUAs");
 
-                    foreach (var m in muas.Where(x => x.Id == id))
+                    foreach (var m in muas)
                     {
-                        Console.WriteLine(m.ToString());
+                        if (m.Id == id)
+                        {
+                            Console.WriteLine(m.ToString());
+                        }
                     }
 
                     //var mua = rest.GetSingle<MUAs>("statistics/mua/{id}", id);
@@ -261,14 +270,13 @@ namespace U4WM55_HFT_2021221.Client
 
                     var conns = rest.Get<Connector>("statistics/allConns");
 
-                    foreach (var c in conns.Where(x => x.CCMId == id))
+                    foreach (var c in conns)
                     {
-                        Console.WriteLine(c.ToString());
+                        if (c.CCMId == id)
+                        {
+                            Console.WriteLine(c.ToString());
+                        }
                     }
-
-                    //var conn = rest.GetSingle<Connector>("statistics/conn/{id}", id);
-
-                    //Console.WriteLine(conn.ToString());
 
                     done = true;
                 }
@@ -310,10 +318,6 @@ namespace U4WM55_HFT_2021221.Client
                     
                         rest.Put<Competitions>(temp, "jury/compDiff");
 
-                        //Competitions changeComp = new Competitions() { Id = id, Difficulty = newCompDiff };
-
-                        //rest.Put<Competitions>(changeComp, "jury/compDiff");
-
                         Console.WriteLine(temp.ToString());
                         Console.ReadLine();
 
@@ -346,23 +350,18 @@ namespace U4WM55_HFT_2021221.Client
 
                 var looks = rest.Get<Looks>("statistics/allLooks");
 
-                foreach (var temp in looks.Where(x => x.Id == id))
+                foreach (var temp in looks)
                 {
-                    rest.Put<Looks>(temp, "jury/lookDiff");
+                    if (temp.Id == id)
+                    {
+                        temp.Difficulty = newLookDiff;
 
-                    Looks changeLook = new Looks() { Id = id, Difficulty = newLookDiff };
+                        rest.Put<Looks>(temp, "jury/lookDiff");
 
-                    //rest.Put<Looks>(changeLook, "jury/lookDiff");
-
-                    var l = rest.GetSingle<Looks>("statistics/look", temp.Id);
-
-                    Console.WriteLine(l.ToString());
-                    Console.ReadLine();
+                        Console.WriteLine(temp.ToString());
+                        Console.ReadLine();
+                    }
                 }
-
-                
-
-                
             }
             catch (InvalidOperationException invalid)
             {
@@ -388,14 +387,20 @@ namespace U4WM55_HFT_2021221.Client
                 Console.WriteLine("What do you want the new theme to be?");
                 string newTheme = Console.ReadLine();
 
-                Looks changeLook = new Looks() { Id = id, Theme = newTheme };
+                var looks = rest.Get<Looks>("statistics/allLooks");
 
-                rest.Put<Looks>(changeLook, "jury/theme");
+                foreach (var temp in looks)
+                {
+                    if (temp.Id == id)
+                    {
+                        temp.Theme = newTheme;
+                        rest.Put<Looks>(temp, "jury/theme");
 
-                var l = rest.GetSingle<Looks>("statistics/look", changeLook.Id);
+                        Console.WriteLine(temp.ToString());
+                        Console.ReadLine();
+                    }
 
-                Console.WriteLine(l.ToString());
-                Console.ReadLine();
+                }
             }
             catch (InvalidOperationException invalid)
             {
@@ -423,9 +428,18 @@ namespace U4WM55_HFT_2021221.Client
                 string choice = Console.ReadLine();
                 if (choice == "y" || choice == "Y")
                 {
-                    rest.Delete(deleteId, "jury/delete/{id}");
-                    Console.WriteLine("Okay, I deleted competition number " + deleteId + ".");
-                    Console.ReadLine();
+                    var comps = rest.Get<Competitions>("statistics/allComps");
+
+                    foreach (var temp in comps)
+                    {
+                        if (temp.Id == deleteId)
+                        {
+                            rest.Delete(deleteId, "jury/delete/{id}");
+
+                            Console.WriteLine("Okay, I deleted competition number " + deleteId + ".");
+                            Console.ReadLine();
+                        }
+                    }
                 }
                 else
                 {
@@ -613,14 +627,19 @@ namespace U4WM55_HFT_2021221.Client
                 Console.WriteLine("What do you want the new number of models to be? It can be 1, 2 or 3.");
                 int newNum = int.Parse(Console.ReadLine());
 
-                MUAs changeMUA = new MUAs() { Id = id, NumOfModels = newNum };
+                var muas = rest.Get<MUAs>("statistics/allMUAs");
 
-                rest.Put<MUAs>(changeMUA, "participant/numModels");
+                foreach (var temp in muas)
+                {
+                    if (temp.Id == id)
+                    {
+                        temp.NumOfModels = newNum;
+                        rest.Put<MUAs>(temp, "participant/numModels");
 
-                var m = rest.GetSingle<MUAs>("statistics/mua", changeMUA.Id);
-
-                Console.WriteLine(m.ToString());
-                Console.ReadLine();
+                        Console.WriteLine(temp.ToString());
+                        Console.ReadLine();
+                    }
+                }
             }
             catch (InvalidOperationException invalid)
             {
@@ -646,15 +665,19 @@ namespace U4WM55_HFT_2021221.Client
                 Console.WriteLine("What do you want the new experience level to be? It must be between 1 and 10! (Can be 1 and 10 as well)");
                 int newLvl = int.Parse(Console.ReadLine());
 
-                MUAs changeMUA = new MUAs() { Id = id, ExperienceLvl = newLvl };
+                var muas = rest.Get<MUAs>("statistics/allMUAs");
 
-                rest.Put<MUAs>(changeMUA, "participant/upgradeMua");
+                foreach (var temp in muas)
+                {
+                    if (temp.Id == id)
+                    {
+                        temp.ExperienceLvl = newLvl;
+                        rest.Put<MUAs>(temp, "participant/upgradeMua");
 
-                var m = rest.GetSingle<MUAs>("statistics/mua", changeMUA.Id);
-
-                Console.WriteLine(m.ToString());
-
-                Console.ReadLine();
+                        Console.WriteLine(temp.ToString());
+                        Console.ReadLine();
+                    }
+                }
             }
             catch (InvalidOperationException invalid)
             {
