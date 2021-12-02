@@ -154,34 +154,54 @@ namespace U4WM55_HFT_2021221.Logic
         /// <returns>Returns an IList.</returns>
         public IList<GendersResult> Genders()
         {
-            IList<MUAs> muaList = this.muaRepo.GetAll().ToList();
-            IList<Connector> connList = this.connRepo.GetAll().ToList();
+            var result = this.connRepo.GetAll()
+                .Where(conn => conn.MUAsId == conn.MUAs.Id)
+                .Select(conn => new
+                {
+                    CompetitionID = conn.CompetitionId,
+                    ConnectorID = conn.CCMId,
+                    MUAId = conn.MUAs.Id,
+                    MUAName = conn.MUAs.Name,
+                    MUAGender = conn.MUAs.Gender,
+                })
+                .GroupBy(conn => new { conn.CompetitionID, conn.MUAGender })
+                .Select(grp => new GendersResult
+                {
+                    CompetitionID = grp.Key.CompetitionID,
+                    Gender = grp.Key.MUAGender,
+                    Number = grp.Count(),
+                }).ToList();
 
-            var muaConn = from conn in connList
-                          join mua in muaList
-                          on conn.MUAsId equals mua.Id
-                          let compId = conn.CompetitionId
-                          orderby compId
-                          select new
-                          {
-                              CompetitionID = compId,
-                              ConnectorID = conn.CCMId,
-                              MUAId = mua.Id,
-                              MUAName = mua.Name,
-                              MUAGender = mua.Gender,
-                          };
+            return result;
 
-            var genders = from muas in muaConn
-                          group muas by new { muas.CompetitionID, muas.MUAGender } into grp
-                          let count = grp.Count()
-                          select new GendersResult()
-                          {
-                              CompetitionID = grp.Key.CompetitionID,
-                              Gender = grp.Key.MUAGender,
-                              Number = count,
-                          };
+            //IList<MUAs> muaList = this.muaRepo.GetAll().ToList();
+            //IList<Connector> connList = this.connRepo.GetAll().ToList();
 
-            return genders.ToList();
+            //var muaConn = from conn in connList
+            //              join mua in muaList
+            //              on conn.MUAsId equals mua.Id
+            //              let compId = conn.CompetitionId
+            //              orderby compId
+            //              select new
+            //              {
+            //                  CompetitionID = compId,
+            //                  ConnectorID = conn.CCMId,
+            //                  MUAId = mua.Id,
+            //                  MUAName = mua.Name,
+            //                  MUAGender = mua.Gender,
+            //              };
+
+            //var genders = from muas in muaConn
+            //              group muas by new { muas.CompetitionID, muas.MUAGender } into grp
+            //              let count = grp.Count()
+            //              select new GendersResult()
+            //              {
+            //                  CompetitionID = grp.Key.CompetitionID,
+            //                  Gender = grp.Key.MUAGender,
+            //                  Number = count,
+            //              };
+
+            //return genders.ToList();
         }
 
         /// <summary>
@@ -190,39 +210,52 @@ namespace U4WM55_HFT_2021221.Logic
         /// <returns>Returns an IList.</returns>
         public IList<SameCountryResult> SameCountry()
         {
-            IList<MUAs> muaList = this.muaRepo.GetAll().ToList();
-            IList<Competitions> compList = this.compRepo.GetAll().ToList();
-            IList<Connector> connList = this.connRepo.GetAll().ToList();
+            var result = this.connRepo.GetAll()
+                .Where(conn => conn.Competitions.Place == conn.MUAs.Country)
+                .Select(conn => new SameCountryResult()
+                {
+                    MUACompID = conn.Competitions.Id,
+                    CompetitionPlace = conn.Competitions.Place,
+                    MUAPlace = conn.MUAs.Country,
+                    MUAVeryID = conn.MUAs.Id,
+                    MUAVeryName = conn.MUAs.Name,
+                }).ToList();
+
+            return result;
+
+            //IList<MUAs> muaList = this.muaRepo.GetAll().ToList();
+            //IList<Competitions> compList = this.compRepo.GetAll().ToList();
+            //IList<Connector> connList = this.connRepo.GetAll().ToList();
 
 
-            var muaConn = from conn in connList
-                          join mua in muaList
-                          on conn.MUAsId equals mua.Id
-                          let compId = conn.CompetitionId
-                          orderby compId
-                          select new
-                          {
-                              CompetitionID = compId,
-                              ConnectorID = conn.CCMId,
-                              MUAId = mua.Id,
-                              MUAName = mua.Name,
-                              MUACountry = mua.Country,
-                          };
+            //var muaConn = from conn in connList
+            //              join mua in muaList
+            //              on conn.MUAsId equals mua.Id
+            //              let compId = conn.CompetitionId
+            //              orderby compId
+            //              select new
+            //              {
+            //                  CompetitionID = compId,
+            //                  ConnectorID = conn.CCMId,
+            //                  MUAId = mua.Id,
+            //                  MUAName = mua.Name,
+            //                  MUACountry = mua.Country,
+            //              };
 
-            var compConn = from muas in muaConn
-                           join comp in compList
-                           on muas.CompetitionID equals comp.Id
-                           where comp.Place == muas.MUACountry
-                           select new SameCountryResult()
-                           {
-                               MUACompID = muas.CompetitionID,
-                               CompetitionPlace = comp.Place,
-                               MUAPlace = muas.MUACountry,
-                               MUAVeryID = muas.MUAId,
-                               MUAVeryName = muas.MUAName,
-                           };
+            //var compConn = from muas in muaConn
+            //               join comp in compList
+            //               on muas.CompetitionID equals comp.Id
+            //               where comp.Place == muas.MUACountry
+            //               select new SameCountryResult()
+            //               {
+            //                   MUACompID = muas.CompetitionID,
+            //                   CompetitionPlace = comp.Place,
+            //                   MUAPlace = muas.MUACountry,
+            //                   MUAVeryID = muas.MUAId,
+            //                   MUAVeryName = muas.MUAName,
+            //               };
 
-            return compConn.ToList();
+            //return compConn.ToList();
         }
 
         ///// <summary>

@@ -218,6 +218,8 @@ namespace U4WM55_HFT_2021221.Logic
                             };
 
             return sponBrand.ToList();
+
+            
         }
 
         /// <summary>
@@ -226,21 +228,35 @@ namespace U4WM55_HFT_2021221.Logic
         /// <returns>This returns an IList type variable.</returns>
         public IList<HowManyLooksResult> HowManyLooks()
         {
-            IList<Competitions> compList = this.compRepo.GetAll().ToList();
-            IList<Looks> lookList = this.lookRepo.GetAll().ToList();
+            var group = this.lookRepo.GetAll()
+                .Where(look => look.CompId == look.Competition.Id)
+                .GroupBy(look => new
+                {
+                    CompId = look.CompId
+                })
+                .Select(grp => new HowManyLooksResult
+                {
+                    CompetitionID = (int)grp.Key.CompId,
+                    NumberOfLooks = grp.Count(),
+                }).ToList();
 
-            var looksAtComp = from looks in lookList
-                              join comp in compList
-                              on looks.CompId.Value equals comp.Id
-                              group looks by looks.CompId.Value into grp
-                              let count = grp.Count()
-                              select new HowManyLooksResult()
-                              {
-                                  CompetitionID = grp.Key,
-                                  NumberOfLooks = count,
-                              };
+            return group;
 
-            return looksAtComp.ToList();
+            //IList<Competitions> compList = this.compRepo.GetAll().ToList();
+            //IList<Looks> lookList = this.lookRepo.GetAll().ToList();
+
+            //var looksAtComp = from looks in lookList
+            //                  join comp in compList
+            //                  on looks.CompId.Value equals comp.Id
+            //                  group looks by looks.CompId.Value into grp
+            //                  let count = grp.Count()
+            //                  select new HowManyLooksResult()
+            //                  {
+            //                      CompetitionID = grp.Key,
+            //                      NumberOfLooks = count,
+            //                  };
+
+            //return looksAtComp.ToList();
         }
 
         ///// <summary>
