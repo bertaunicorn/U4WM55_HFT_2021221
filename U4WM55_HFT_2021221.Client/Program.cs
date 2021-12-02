@@ -65,8 +65,8 @@ namespace U4WM55_HFT_2021221.Client
             var subMenuQuerys = new ConsoleMenu()
                 .Add(">> SAME COUNTRY FINDER", () => SameCountry(rest))
                 .Add(">> GENDERS EVALUATION", () => Genders(rest))
-                //.Add(">> LOOK AT BRANDS", () => SponsorBrands(rest))
-                //.Add(">> HOW MANY LOOKS", () => HowManyLooks(rest))
+                .Add(">> LOOK AT BRANDS", () => SponsorBrands(rest))
+                .Add(">> HOW MANY LOOKS", () => HowManyLooks(rest))
                 .Add(">> BACK TO MAIN MENU", ConsoleMenu.Close);
 
             var menu = new ConsoleMenu()
@@ -822,6 +822,7 @@ namespace U4WM55_HFT_2021221.Client
             {
                 Console.WriteLine(item);
             }
+            Console.ReadLine();
         }
 
         private static void Genders(RestService rest)
@@ -834,29 +835,37 @@ namespace U4WM55_HFT_2021221.Client
             {
                 Console.WriteLine(item);
             }
+
+            Console.ReadLine();
         }
 
-        //private static void SponsorBrands()
-        //{
-        //    Console.WriteLine("\n:: BRANDS THAT ARE SPONSORING A LOOK AND A MUA ::\n");
-        //    foreach (var item in juryLogic.SponsorBrands())
-        //    {
-        //        Console.WriteLine(item);
-        //    }
+        private static void SponsorBrands(RestService rest)
+        {
+            Console.WriteLine("\n:: BRANDS THAT ARE SPONSORING A LOOK AND A MUA ::\n");
 
-        //    Console.ReadLine();
-        //}
+            var brandList = rest.Get<SponsorBrandsResult>("jury/sponsors");
 
-        //private static void HowManyLooks()
-        //{
-        //    Console.WriteLine("\n:: HOW MANY LOOKS ARE AT THE COMPETITIONS ::\n");
-        //    foreach (var item in juryLogic.HowManyLooks())
-        //    {
-        //        Console.WriteLine(item);
-        //    }
+            foreach (var item in brandList)
+            {
+                Console.WriteLine(item);
+            }
 
-        //    Console.ReadLine();
-        //}
+            Console.ReadLine();
+        }
+
+        private static void HowManyLooks(RestService rest)
+        {
+            Console.WriteLine("\n:: HOW MANY LOOKS ARE AT THE COMPETITIONS ::\n");
+
+            var manyList = rest.Get<HowManyLooksResult>("jury/howMany");
+
+            foreach (var item in manyList)
+            {
+                Console.WriteLine(item);
+            }
+
+            Console.ReadLine();
+        }
 
     }
 }

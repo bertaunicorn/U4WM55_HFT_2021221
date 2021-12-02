@@ -154,8 +154,8 @@ namespace U4WM55_HFT_2021221.Logic
         /// <returns>Returns an IList.</returns>
         public IList<GendersResult> Genders()
         {
-            IQueryable<MUAs> muaList = this.muaRepo.GetAll();
-            IQueryable<Connector> connList = this.connRepo.GetAll();
+            IList<MUAs> muaList = this.muaRepo.GetAll().ToList();
+            IList<Connector> connList = this.connRepo.GetAll().ToList();
 
             var muaConn = from conn in connList
                           join mua in muaList
@@ -190,9 +190,9 @@ namespace U4WM55_HFT_2021221.Logic
         /// <returns>Returns an IList.</returns>
         public IList<SameCountryResult> SameCountry()
         {
-            IQueryable<MUAs> muaList = this.muaRepo.GetAll();
-            IQueryable<Competitions> compList = this.compRepo.GetAll();
-            IQueryable<Connector> connList = this.connRepo.GetAll();
+            IList<MUAs> muaList = this.muaRepo.GetAll().ToList();
+            IList<Competitions> compList = this.compRepo.GetAll().ToList();
+            IList<Connector> connList = this.connRepo.GetAll().ToList();
 
 
             var muaConn = from conn in connList

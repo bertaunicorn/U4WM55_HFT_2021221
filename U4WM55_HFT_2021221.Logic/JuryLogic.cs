@@ -202,8 +202,8 @@ namespace U4WM55_HFT_2021221.Logic
         /// <returns>This returns an IList type variable.</returns>
         public IList<SponsorBrandsResult> SponsorBrands()
         {
-            IQueryable<MUAs> muaList = this.muaRepo.GetAll();
-            IQueryable<Looks> lookList = this.lookRepo.GetAll();
+            IList<MUAs> muaList = this.muaRepo.GetAll().ToList();
+            IList<Looks> lookList = this.lookRepo.GetAll().ToList();
 
             var sponBrand = from muas in muaList
                             from looks in lookList
@@ -226,8 +226,8 @@ namespace U4WM55_HFT_2021221.Logic
         /// <returns>This returns an IList type variable.</returns>
         public IList<HowManyLooksResult> HowManyLooks()
         {
-            IQueryable<Competitions> compList = this.compRepo.GetAll();
-            IQueryable<Looks> lookList = this.lookRepo.GetAll();
+            IList<Competitions> compList = this.compRepo.GetAll().ToList();
+            IList<Looks> lookList = this.lookRepo.GetAll().ToList();
 
             var looksAtComp = from looks in lookList
                               join comp in compList
