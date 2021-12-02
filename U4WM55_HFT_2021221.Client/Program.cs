@@ -424,7 +424,7 @@ namespace U4WM55_HFT_2021221.Client
             try
             {
                 Console.WriteLine("This is the competition you wish to delete: " + deleteId.ToString()
-                + " Are you sure you want to DELETE it? Please press y/n to indicate!");
+                + " Are you sure you want to DELETE it? Please press y/n to indicate!"); //Console.WriteLine(comps.Where(x => x.Id == deleteId) + "\n");
                 string choice = Console.ReadLine();
                 if (choice == "y" || choice == "Y")
                 {
@@ -434,7 +434,7 @@ namespace U4WM55_HFT_2021221.Client
                     {
                         if (temp.Id == deleteId)
                         {
-                            rest.Delete(deleteId, $"jury/delete/{deleteId}");
+                            rest.Delete(deleteId, "jury/deleteComp");
 
                             Console.WriteLine("Okay, I deleted competition number " + deleteId + ".");
                             Console.ReadLine();
@@ -472,7 +472,7 @@ namespace U4WM55_HFT_2021221.Client
                 string choice = Console.ReadLine();
                 if (choice == "y" || choice == "Y")
                 {
-                    rest.Delete(deleteId, $"jury/delete/{deleteId}");
+                    rest.Delete(deleteId, "jury/deleteMUA");
                     Console.WriteLine("Okay, I deleted mua number " + deleteId + ".");
                     Console.ReadLine();
                 }
@@ -507,7 +507,7 @@ namespace U4WM55_HFT_2021221.Client
                 string choice = Console.ReadLine();
                 if (choice == "y" || choice == "Y")
                 {
-                    rest.Delete(deleteId, $"jury/delete/{deleteId}");
+                    rest.Delete(deleteId, "jury/deleteLook");
                     Console.WriteLine("Okay, I deleted look number " + deleteId + ".");
                     Console.ReadLine();
                 }
@@ -792,7 +792,7 @@ namespace U4WM55_HFT_2021221.Client
                 string choice = Console.ReadLine();
                 if (choice == "y" || choice == "Y")
                 {
-                    rest.Delete(deleteId, $"participant/delete/{deleteId}");
+                    rest.Delete(deleteId, "participant/deleteConn");
                 }
                 else
                 {

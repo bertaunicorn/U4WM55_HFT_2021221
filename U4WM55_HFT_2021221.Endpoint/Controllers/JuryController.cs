@@ -28,19 +28,19 @@ namespace U4WM55_HFT_2021221.Endpoint.Controllers
             jl.CreateLook(look.Theme, look.Brand, look.Budget, look.TimeFrame, look.Difficulty, (int)look.CompId);
         }
 
-        [HttpDelete("delete/{id}")]
+        [HttpDelete("deleteMUA/{id}")]
         public void DeleteMUA(int id)
         {
             jl.DeleteMUA(id);
         }
 
-        [HttpDelete("delete/{id}")]
+        [HttpDelete("deleteComp/{id}")]
         public void DeleteComp(int id)
         {
             jl.DeleteComp(id);
         }
 
-        [HttpDelete("delete/{id}")]
+        [HttpDelete("deleteLook/{id}")]
         public void DeleteLook(int id)
         {
             jl.DeleteLook(id);

@@ -28,7 +28,7 @@ namespace U4WM55_HFT_2021221.Endpoint.Controllers
             pl.CreateConnection(conn.CompetitionId, conn.MUAsId);
         }
 
-        [HttpDelete("delete/{id}")]
+        [HttpDelete("deleteConn/{id}")]
         public void Delete(int id)
         {
             pl.DeleteConnection(id);

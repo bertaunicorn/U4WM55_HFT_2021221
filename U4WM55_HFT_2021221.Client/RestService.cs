@@ -76,7 +76,7 @@ namespace U4WM55_HFT_2021221.Client
         public void Delete(int id, string endpoint)
         {
             HttpResponseMessage response =
-                client.DeleteAsync(endpoint + "/" + id.ToString()).GetAwaiter().GetResult();
+                client.DeleteAsync(endpoint + "/" + id).GetAwaiter().GetResult();
 
             response.EnsureSuccessStatusCode();
         }
