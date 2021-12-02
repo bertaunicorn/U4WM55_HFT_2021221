@@ -194,6 +194,7 @@ namespace U4WM55_HFT_2021221.Logic
             IQueryable<Competitions> compList = this.compRepo.GetAll();
             IQueryable<Connector> connList = this.connRepo.GetAll();
 
+
             var muaConn = from conn in connList
                           join mua in muaList
                           on conn.MUAsId equals mua.Id

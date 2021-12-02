@@ -434,7 +434,7 @@ namespace U4WM55_HFT_2021221.Client
                     {
                         if (temp.Id == deleteId)
                         {
-                            rest.Delete(deleteId, "jury/delete/{id}");
+                            rest.Delete(deleteId, $"jury/delete/{deleteId}");
 
                             Console.WriteLine("Okay, I deleted competition number " + deleteId + ".");
                             Console.ReadLine();
@@ -472,7 +472,7 @@ namespace U4WM55_HFT_2021221.Client
                 string choice = Console.ReadLine();
                 if (choice == "y" || choice == "Y")
                 {
-                    rest.Delete(deleteId, "jury/delete/{id}");
+                    rest.Delete(deleteId, $"jury/delete/{deleteId}");
                     Console.WriteLine("Okay, I deleted mua number " + deleteId + ".");
                     Console.ReadLine();
                 }
@@ -507,7 +507,7 @@ namespace U4WM55_HFT_2021221.Client
                 string choice = Console.ReadLine();
                 if (choice == "y" || choice == "Y")
                 {
-                    rest.Delete(deleteId, "jury/delete/{id}");
+                    rest.Delete(deleteId, $"jury/delete/{deleteId}");
                     Console.WriteLine("Okay, I deleted look number " + deleteId + ".");
                     Console.ReadLine();
                 }
@@ -792,7 +792,7 @@ namespace U4WM55_HFT_2021221.Client
                 string choice = Console.ReadLine();
                 if (choice == "y" || choice == "Y")
                 {
-                    rest.Delete(deleteId, "participant/delete/{id}");
+                    rest.Delete(deleteId, $"participant/delete/{deleteId}");
                 }
                 else
                 {
