@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using U4WM55_HFT_2021221.Models;
 
@@ -74,13 +75,13 @@ namespace U4WM55_HFT_2021221.Logic
         /// This is a non-CRUD linq query which shows if there is a brand that is used for a look and also sponsors a MUA.
         /// </summary>
         /// <returns>This returns an IList type variable.</returns>
-        IList<SponsorBrandsResult> SponsorBrands();
+        IQueryable<SponsorBrandsResult> SponsorBrands();
 
         /// <summary>
         /// How many looks are there at comps.
         /// </summary>
         /// <returns>This returns an IList type variable.</returns>
-        IList<HowManyLooksResult> HowManyLooks();
+        IQueryable<HowManyLooksResult> HowManyLooks();
 
         ///// <summary>
         ///// The async version of my SponsorBrands() method.

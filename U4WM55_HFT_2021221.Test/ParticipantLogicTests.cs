@@ -115,16 +115,16 @@ namespace U4WM55_HFT_2021221.Test
 
             List<Competitions> compsList = new List<Competitions>() { comp1, comp2, comp3 };
 
-            Connector conn1 = new Connector() { CCMId = 1, CompetitionId = comp1.Id, MUAsId = mua1.Id };
-            Connector conn2 = new Connector() { CCMId = 2, CompetitionId = comp1.Id, MUAsId = mua2.Id };
-            Connector conn3 = new Connector() { CCMId = 3, CompetitionId = comp1.Id, MUAsId = mua3.Id };
-            Connector conn4 = new Connector() { CCMId = 4, CompetitionId = comp1.Id, MUAsId = mua4.Id };
-            Connector conn5 = new Connector() { CCMId = 5, CompetitionId = comp2.Id, MUAsId = mua2.Id };
-            Connector conn6 = new Connector() { CCMId = 6, CompetitionId = comp2.Id, MUAsId = mua3.Id };
-            Connector conn7 = new Connector() { CCMId = 7, CompetitionId = comp2.Id, MUAsId = mua5.Id };
-            Connector conn8 = new Connector() { CCMId = 8, CompetitionId = comp3.Id, MUAsId = mua1.Id };
-            Connector conn9 = new Connector() { CCMId = 9, CompetitionId = comp3.Id, MUAsId = mua4.Id };
-            Connector conn10 = new Connector() { CCMId = 10, CompetitionId = comp3.Id, MUAsId = mua5.Id };
+            Connector conn1 = new Connector() { CCMId = 1, CompetitionId = comp1.Id, Competitions = comp1, MUAsId = mua1.Id, MUAs = mua1 };
+            Connector conn2 = new Connector() { CCMId = 2, CompetitionId = comp1.Id, Competitions = comp1, MUAsId = mua2.Id, MUAs = mua2 };
+            Connector conn3 = new Connector() { CCMId = 3, CompetitionId = comp1.Id, Competitions = comp1, MUAsId = mua3.Id, MUAs = mua3 };
+            Connector conn4 = new Connector() { CCMId = 4, CompetitionId = comp1.Id, Competitions = comp1, MUAsId = mua4.Id, MUAs = mua4 };
+            Connector conn5 = new Connector() { CCMId = 5, CompetitionId = comp2.Id, Competitions = comp2, MUAsId = mua2.Id, MUAs = mua2 };
+            Connector conn6 = new Connector() { CCMId = 6, CompetitionId = comp2.Id, Competitions = comp2, MUAsId = mua3.Id, MUAs = mua3 };
+            Connector conn7 = new Connector() { CCMId = 7, CompetitionId = comp2.Id, Competitions = comp2, MUAsId = mua5.Id, MUAs = mua5 };
+            Connector conn8 = new Connector() { CCMId = 8, CompetitionId = comp3.Id, Competitions = comp3, MUAsId = mua1.Id, MUAs = mua1 };
+            Connector conn9 = new Connector() { CCMId = 9, CompetitionId = comp3.Id, Competitions = comp3, MUAsId = mua4.Id, MUAs = mua4 };
+            Connector conn10 = new Connector() { CCMId = 10, CompetitionId = comp3.Id, Competitions = comp3, MUAsId = mua5.Id, MUAs = mua5 };
 
             List<Connector> connList = new List<Connector>() { conn1, conn2, conn3, conn4, conn5, conn6, conn7, conn8, conn9, conn10 };
 

@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using U4WM55_HFT_2021221.Models;
 
@@ -54,13 +55,13 @@ namespace U4WM55_HFT_2021221.Logic
         /// This is a non-CRUD linq query which shows how many of each gender option there were at the competitions.
         /// </summary>
         /// <returns>Returns an IList.</returns>
-        IList<GendersResult> Genders();
+        IQueryable<GendersResult> Genders();
 
         /// <summary>
         /// This is a non-CRUD linq query which shows if there is a MUA from the country of the current competition.
         /// </summary>
         /// <returns>Returns an IList.</returns>
-        IList<SameCountryResult> SameCountry();
+        IQueryable<SameCountryResult> SameCountry();
 
         ///// <summary>
         ///// The async version of my Genders() method.

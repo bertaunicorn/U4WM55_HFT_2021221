@@ -152,7 +152,7 @@ namespace U4WM55_HFT_2021221.Logic
         /// This is a non-CRUD linq query which shows how many of each gender option there were at the competitions.
         /// </summary>
         /// <returns>Returns an IList.</returns>
-        public IList<GendersResult> Genders()
+        public IQueryable<GendersResult> Genders()
         {
             var result = this.connRepo.GetAll()
                 .Where(conn => conn.MUAsId == conn.MUAs.Id)
@@ -170,7 +170,7 @@ namespace U4WM55_HFT_2021221.Logic
                     CompetitionID = grp.Key.CompetitionID,
                     Gender = grp.Key.MUAGender,
                     Number = grp.Count(),
-                }).ToList();
+                }); //.ToList();
 
             return result;
 
@@ -208,7 +208,7 @@ namespace U4WM55_HFT_2021221.Logic
         /// This is a non-CRUD linq query which shows if there is a MUA from the country of the current competition.
         /// </summary>
         /// <returns>Returns an IList.</returns>
-        public IList<SameCountryResult> SameCountry()
+        public IQueryable<SameCountryResult> SameCountry()
         {
             var result = this.connRepo.GetAll()
                 .Where(conn => conn.Competitions.Place == conn.MUAs.Country)
@@ -219,7 +219,7 @@ namespace U4WM55_HFT_2021221.Logic
                     MUAPlace = conn.MUAs.Country,
                     MUAVeryID = conn.MUAs.Id,
                     MUAVeryName = conn.MUAs.Name,
-                }).ToList();
+                }); //.ToList();
 
             return result;
 

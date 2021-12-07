@@ -202,6 +202,10 @@ namespace U4WM55_HFT_2021221.Logic
         /// <returns>This returns an IList type variable.</returns>
         public IList<SponsorBrandsResult> SponsorBrands()
         {
+            //var muas = this.muaRepo.GetAll().ToList();
+            //var result = this.lookRepo.GetAll()
+            //    .Where(look => look.Brand == muas.)
+
             IList<MUAs> muaList = this.muaRepo.GetAll().ToList();
             IList<Looks> lookList = this.lookRepo.GetAll().ToList();
 
@@ -226,7 +230,7 @@ namespace U4WM55_HFT_2021221.Logic
         /// How many looks are there at comps.
         /// </summary>
         /// <returns>This returns an IList type variable.</returns>
-        public IList<HowManyLooksResult> HowManyLooks()
+        public IQueryable<HowManyLooksResult> HowManyLooks()
         {
             var group = this.lookRepo.GetAll()
                 .Where(look => look.CompId == look.Competition.Id)
@@ -238,7 +242,7 @@ namespace U4WM55_HFT_2021221.Logic
                 {
                     CompetitionID = (int)grp.Key.CompId,
                     NumberOfLooks = grp.Count(),
-                }).ToList();
+                }); //.ToList();
 
             return group;
 

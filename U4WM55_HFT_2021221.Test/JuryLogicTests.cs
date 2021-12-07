@@ -115,12 +115,12 @@ namespace U4WM55_HFT_2021221.Test
 
             List<Competitions> compsList = new List<Competitions>() { comp1, comp2, comp3 };
 
-            Looks look1 = new Looks() { Id = 1, Theme = "fun", Brand = "MAC", Budget = 400, TimeFrame = 120, Difficulty = 2, CompId = comp1.Id };
-            Looks look2 = new Looks() { Id = 2, Theme = "fun", Brand = "Glossier", Budget = 400, TimeFrame = 120, Difficulty = 2, CompId = comp1.Id };
-            Looks look3 = new Looks() { Id = 3, Theme = "fun", Brand = "MAC", Budget = 400, TimeFrame = 120, Difficulty = 2, CompId = comp2.Id };
-            Looks look4 = new Looks() { Id = 4, Theme = "fun", Brand = "YSL", Budget = 400, TimeFrame = 120, Difficulty = 2, CompId = comp2.Id };
-            Looks look5 = new Looks() { Id = 5, Theme = "fun", Brand = "Bobbi Brown", Budget = 400, TimeFrame = 120, Difficulty = 2, CompId = comp2.Id };
-            Looks look6 = new Looks() { Id = 6, Theme = "fun", Brand = "Revolution", Budget = 400, TimeFrame = 120, Difficulty = 2, CompId = comp3.Id };
+            Looks look1 = new Looks() { Id = 1, Theme = "fun", Brand = "MAC", Budget = 400, TimeFrame = 120, Difficulty = 2, CompId = comp1.Id, Competition = comp1 };
+            Looks look2 = new Looks() { Id = 2, Theme = "fun", Brand = "Glossier", Budget = 400, TimeFrame = 120, Difficulty = 2, CompId = comp1.Id, Competition = comp1 };
+            Looks look3 = new Looks() { Id = 3, Theme = "fun", Brand = "MAC", Budget = 400, TimeFrame = 120, Difficulty = 2, CompId = comp2.Id, Competition = comp2 };
+            Looks look4 = new Looks() { Id = 4, Theme = "fun", Brand = "YSL", Budget = 400, TimeFrame = 120, Difficulty = 2, CompId = comp2.Id, Competition = comp2 };
+            Looks look5 = new Looks() { Id = 5, Theme = "fun", Brand = "Bobbi Brown", Budget = 400, TimeFrame = 120, Difficulty = 2, CompId = comp2.Id, Competition = comp2 };
+            Looks look6 = new Looks() { Id = 6, Theme = "fun", Brand = "Revolution", Budget = 400, TimeFrame = 120, Difficulty = 2, CompId = comp3.Id, Competition = comp3 };
 
             List<Looks> looksList = new List<Looks>() { look1, look2, look3, look4, look5, look6 };
 
