@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
+using System.Linq;
 using U4WM55_HFT_2021221.Logic;
 using U4WM55_HFT_2021221.Models;
 
@@ -65,13 +66,13 @@ namespace U4WM55_HFT_2021221.Endpoint.Controllers
         }
 
         [HttpGet("sponsors")]
-        public IList<SponsorBrandsResult> SponsorBrands()
+        public IQueryable<SponsorBrandsResult> SponsorBrands()
         {
             return jl.SponsorBrands();
         }
 
         [HttpGet("howMany")]
-        public IList<HowManyLooksResult> HowManyLooks()
+        public IQueryable<HowManyLooksResult> HowManyLooks()
         {
             return jl.HowManyLooks();
         }

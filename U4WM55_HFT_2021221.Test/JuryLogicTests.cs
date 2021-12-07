@@ -93,7 +93,7 @@ namespace U4WM55_HFT_2021221.Test
 
             Assert.That(howManyLooks, Is.EquivalentTo(this.expectedHowManyLooksResult));
             this.lookRepo.Verify(repo => repo.GetAll(), Times.Once);
-            this.compRepo.Verify(repo => repo.GetAll(), Times.Once);
+            //this.compRepo.Verify(repo => repo.GetAll(), Times.Once);
         }
 
         private JuryLogic CreateLogicWithMocks()

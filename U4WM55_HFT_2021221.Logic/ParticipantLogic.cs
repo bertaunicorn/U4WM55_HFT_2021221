@@ -154,7 +154,7 @@ namespace U4WM55_HFT_2021221.Logic
         /// <returns>Returns an IList.</returns>
         public IQueryable<GendersResult> Genders()
         {
-            var result = this.connRepo.GetAll()
+            IQueryable<GendersResult> result = this.connRepo.GetAll()
                 .Where(conn => conn.MUAsId == conn.MUAs.Id)
                 .Select(conn => new
                 {
@@ -210,7 +210,7 @@ namespace U4WM55_HFT_2021221.Logic
         /// <returns>Returns an IList.</returns>
         public IQueryable<SameCountryResult> SameCountry()
         {
-            var result = this.connRepo.GetAll()
+            IQueryable<SameCountryResult> result = this.connRepo.GetAll()
                 .Where(conn => conn.Competitions.Place == conn.MUAs.Country)
                 .Select(conn => new SameCountryResult()
                 {

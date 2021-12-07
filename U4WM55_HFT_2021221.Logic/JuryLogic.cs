@@ -200,14 +200,14 @@ namespace U4WM55_HFT_2021221.Logic
         /// This is a non-CRUD linq query which shows if there is a brand that is used for a look and also sponsors a MUA.
         /// </summary>
         /// <returns>This returns an IList type variable.</returns>
-        public IList<SponsorBrandsResult> SponsorBrands()
+        public IQueryable<SponsorBrandsResult> SponsorBrands()
         {
             //var muas = this.muaRepo.GetAll().ToList();
             //var result = this.lookRepo.GetAll()
             //    .Where(look => look.Brand == muas.)
 
-            IList<MUAs> muaList = this.muaRepo.GetAll().ToList();
-            IList<Looks> lookList = this.lookRepo.GetAll().ToList();
+            IQueryable<MUAs> muaList = this.muaRepo.GetAll();
+            IQueryable<Looks> lookList = this.lookRepo.GetAll();
 
             var sponBrand = from muas in muaList
                             from looks in lookList
@@ -221,7 +221,7 @@ namespace U4WM55_HFT_2021221.Logic
                                 LookID = looks.Id,
                             };
 
-            return sponBrand.ToList();
+            return sponBrand; //.ToList();
 
             
         }
@@ -232,7 +232,7 @@ namespace U4WM55_HFT_2021221.Logic
         /// <returns>This returns an IList type variable.</returns>
         public IQueryable<HowManyLooksResult> HowManyLooks()
         {
-            var group = this.lookRepo.GetAll()
+            IQueryable<HowManyLooksResult> group = this.lookRepo.GetAll()
                 .Where(look => look.CompId == look.Competition.Id)
                 .GroupBy(look => new
                 {

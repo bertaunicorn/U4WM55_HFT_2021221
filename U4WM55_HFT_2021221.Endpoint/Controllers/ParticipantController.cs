@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
+using System.Linq;
 using U4WM55_HFT_2021221.Logic;
 using U4WM55_HFT_2021221.Models;
 
@@ -47,13 +48,13 @@ namespace U4WM55_HFT_2021221.Endpoint.Controllers
         }
 
         [HttpGet("genders")]
-        public IList<GendersResult> Genders()
+        public IQueryable<GendersResult> Genders()
         {
             return pl.Genders();
         }
 
         [HttpGet("country")]
-        public IList<SameCountryResult> SameCountry()
+        public IQueryable<SameCountryResult> SameCountry()
         {
             return pl.SameCountry();
         }
