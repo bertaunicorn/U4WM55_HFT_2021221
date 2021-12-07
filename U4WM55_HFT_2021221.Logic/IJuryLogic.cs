@@ -75,7 +75,7 @@ namespace U4WM55_HFT_2021221.Logic
         /// This is a non-CRUD linq query which shows if there is a brand that is used for a look and also sponsors a MUA.
         /// </summary>
         /// <returns>This returns an IList type variable.</returns>
-        IQueryable<SponsorBrandsResult> SponsorBrands();
+        IList<SponsorBrandsResult> SponsorBrands();
 
         /// <summary>
         /// How many looks are there at comps.

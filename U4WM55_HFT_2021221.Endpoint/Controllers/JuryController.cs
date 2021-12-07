@@ -66,7 +66,7 @@ namespace U4WM55_HFT_2021221.Endpoint.Controllers
         }
 
         [HttpGet("sponsors")]
-        public IQueryable<SponsorBrandsResult> SponsorBrands()
+        public IList<SponsorBrandsResult> SponsorBrands()
         {
             return jl.SponsorBrands();
         }
